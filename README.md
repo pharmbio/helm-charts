@@ -1,6 +1,6 @@
 This repository contains Helm packages that are maintained by pharmbio. The packages are hosted by GitHub pages, and a fully automated release of charts is provided using Travis CI.
 
-[![Build Status](https://travis-ci.org/pharmbio/helm-charts.svg?branch=master)](https://travis-ci.org/pharmbio/helm-charts)
+[![Build Status](https://travis-ci.com/pharmbio/helm-charts.svg?branch=master)](https://travis-ci.com/pharmbio/helm-charts)
 
 ## Getting started
 
