@@ -1,0 +1,18 @@
+apiVersion: v1
+entries:
+  cheese:
+  - apiVersion: v1
+    created: 2019-01-14T09:53:40.860916677Z
+    description: 'Simple cheese deployment described by Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
+    digest: cc92f53da83d55225681bc0e90f2e2407e5d9f8221fd0d8e08cb9fb6f53443c9
+    home: https://hub.docker.com/r/errm/cheese
+    maintainers:
+    - email: marco.capuccini@it.uu.se
+      name: Marco Capuccini
+    name: cheese
+    sources:
+    - https://github.com/errm/cheese
+    urls:
+    - https://pharmbio.github.io/helm-charts/cheese-0.1.0.tgz
+    version: 0.1.0
+generated: 2019-01-14T09:53:40.860238694Z
