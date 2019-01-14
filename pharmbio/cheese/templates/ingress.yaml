@@ -26,3 +26,18 @@ spec:
         backend:
           serviceName: wensleydale
           servicePort: http
+  tls:
+  - secretName: stilton-cheese-tls-secret
+  - secretName: cheddar-cheese-tls-secret
+  - secretName: wensleydale-cheese-tls-secret
+#  tls:
+#  - hosts:
+#    - stilton.{{ .Values.domain }}
+#    secretName: stilton-cheese-tls-secret
+#  - hosts:
+#    - cheddar.{{ .Values.domain }}
+#    secretName: cheddar-cheese-tls-secret
+#  - hosts:
+#    - wensleydale.{{ .Values.domain }}i
+#    secretName: wensleydale-cheese-tls-secret
+
