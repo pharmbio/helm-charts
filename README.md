@@ -9,3 +9,10 @@ To be able to deploy Helm charts from this repository, you should first run the 
 ```console
 $ helm repo add pharmbio https://pharmbio.github.io/helm-charts/
 ```
+
+Test deploy a chart
+```
+$ helm install --name cheese --set domain=your.domain.name pharmbio/cheese
+```
+
+Manually build and test charts
