@@ -15,4 +15,36 @@ Test deploy a chart
 $ helm install --name cheese --set domain=your.domain.name pharmbio/cheese
 ```
 
-Manually build and test charts
+### Manually build and test charts
+    
+    # charts root dir
+    cd pharmbio/
+
+    # Create skeleton chart
+    helm create testchart
+    
+    # lint
+    helm lint ./ml-container/
+    
+    # test-install
+    helm install --name test --namespace test --dry-run --debug ./testchart
+    
+    # install
+    helm install --name test --namespace test ./testchart
+    
+    # delete
+    helm delete --purge
+    
+    # update deps (if there are any)
+    helm dep update ./testchart
+    
+    # build package (for testing)
+    helm package ./testchart
+    
+    # test install package
+    helm install --dry-run testchart-0.1.0.tgz
+    
+    # commit and push branch to publish changes on pharmbio chart-repo
+    git .......
+
+
