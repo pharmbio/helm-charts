@@ -27,7 +27,7 @@ https://docs.helm.sh/chart_best_practices/
     helm create testchart
     
     # lint
-    helm lint ./ml-container/
+    helm lint ./testchart
     
     # test-install
     helm install --name test --namespace test --dry-run --debug ./testchart

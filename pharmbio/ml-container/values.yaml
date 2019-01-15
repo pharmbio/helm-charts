@@ -2,12 +2,16 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+users:
+  - student1
+  - student2
+ 
 replicaCount: 1
 
 image:
-  repository: nginx
-  tag: stable
-  pullPolicy: IfNotPresent
+  repository: pharmbio/ml-container
+  tag: master
+  pullPolicy: Always
 
 nameOverride: ""
 fullnameOverride: ""
