@@ -16,6 +16,9 @@ $ helm install --name cheese --set domain=your.domain.name pharmbio/cheese
 ```
 
 ### Manually build and test charts
+
+https://docs.helm.sh/chart_best_practices/
+
     
     # charts root dir
     cd pharmbio/
