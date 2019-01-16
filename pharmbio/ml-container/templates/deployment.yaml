@@ -4,8 +4,8 @@ apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
   labels:
-    app: "ml-container-{{ . }}"
-  name: "ml-container-{{ . }}"
+    app: "{{ $.Chart.Name }}-{{ . }}"
+  name: "{{ $.Chart.Name }}-{{ . }}"
   namespace: labinf
 spec:
   progressDeadlineSeconds: 600
@@ -13,11 +13,11 @@ spec:
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: "ml-container-{{ . }}"
+      app: "{{ $.Chart.Name }}-{{ . }}"
   template:
     metadata:
       labels:
-        app: "ml-container-{{ . }}"
+        app: "{{ $.Chart.Name }}-{{ . }}"
     spec:
       affinity:
         nodeAffinity:
@@ -31,7 +31,7 @@ spec:
       containers:
       - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
-        name: "ml-container-{{ . }}"
+        name: "{{ $.Chart.Name }}-{{ . }}"
         command:
           - "jupyter"
         args: 

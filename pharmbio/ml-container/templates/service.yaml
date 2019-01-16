@@ -3,9 +3,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "ml-container-{{ . }}"
+  name: "{{ $.Chart.Name }}-{{ . }}"
   labels:
-    app: "ml-container-{{ . }}"
+    app: "{{ $.Chart.Name }}-{{ . }}"
   namespace: labinf
 spec:
   ports:
@@ -14,7 +14,7 @@ spec:
     protocol: TCP
     targetPort: 8888
   selector:
-    app: "ml-container-{{ . }}"
+    app: "{{ $.Chart.Name }}-{{ . }}"
   sessionAffinity: None
   type: ClusterIP
 {{- end }}
