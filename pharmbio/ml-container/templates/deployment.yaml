@@ -6,7 +6,6 @@ metadata:
   labels:
     app: "{{ $.Chart.Name }}-{{ . }}"
   name: "{{ $.Chart.Name }}-{{ . }}"
-  namespace: labinf
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
