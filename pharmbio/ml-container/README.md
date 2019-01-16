@@ -6,6 +6,10 @@ You can install the Chart via Helm CLI:
 
     # Add and edit your values.yaml file (example below)
     vim ml-container-myvals.yaml
+    
+    # You can create a jupyter-notebook password with the password generator:
+    wget https://raw.githubusercontent.com/pharmbio/helm-charts/master/pharmbio/ml-container/jupyter-hashpass-generator.sh 
+    ./jupyter-hashpass-generator.sh <my-password>
 
     # Install chart 
     helm install --namespace your-namespace --name my-ml-container -f ml-container-myvals.yaml pharmbio/ml-container
