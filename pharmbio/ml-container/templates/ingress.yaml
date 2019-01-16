@@ -1,3 +1,4 @@
+{{- if .Values.ingress.enabled -}}
 {{- range .Values.users }}
 ---
 apiVersion: extensions/v1beta1
@@ -12,7 +13,7 @@ metadata:
   namespace: labinf
 spec:
   rules:
-  - host: notebook.{{ . }}.k8s-prod.pharmb.io
+  - host: notebook.{{ . }}.{{ $.Values.ingress.host }}
     http:
       paths:
       - backend:
@@ -21,9 +22,9 @@ spec:
         path: /
   tls:
   - hosts:
-    - notebook.{{ . }}.k8s-prod.pharmb.io
+    - notebook.{{ . }}.{{ $.Values.ingress.host }}
     secretName: "notebook-tls-{{ $.Chart.Name }}-{{ . }}"
 
 {{- end }}
-
+{{- end }}
 

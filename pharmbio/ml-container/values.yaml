@@ -8,8 +8,6 @@ users:
 
 notebookPasswSha1: "sha1:126256b7627a:408ab6ac552a506d58872aae0ae4386892aa6606"
 
-replicaCount: 1
-
 image:
   repository: pharmbio/ml-container
   tag: master
@@ -25,3 +23,8 @@ resources: {}
   #  cpu: "2"
   #  memory: 4000Mi
   #  nvidia.com/gpu: "1"
+
+ingress:
+  enabled: true
+  host: k8s-prod.pharmb.io
+

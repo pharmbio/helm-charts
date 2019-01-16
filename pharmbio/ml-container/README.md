@@ -9,10 +9,20 @@ You can install the Chart via Helm CLI:
     
     # You can create a jupyter-notebook password with the password generator:
     wget https://raw.githubusercontent.com/pharmbio/helm-charts/master/pharmbio/ml-container/jupyter-hashpass-generator.sh 
+    chmod +x jupyter-hashpass-generator.sh
     ./jupyter-hashpass-generator.sh <my-password>
 
     # Install chart 
     helm install --namespace your-namespace --name my-ml-container -f ml-container-myvals.yaml pharmbio/ml-container
+
+
+Accessing jupyter notebook
+
+     # Your access url will be:
+     https://notebook.<username-from-values-file>.<your-domain>
+
+     # e.g
+     https://notebook.student1.k8s-prod.pharmb.io
 
 
 Example values file
@@ -27,8 +37,6 @@ users:
   - student2
 
 notebookPasswSha1: "sha1:126256b7627a:408ab6ac552a506d58872aae0ae4386892aa6606"
-
-replicaCount: 1
 
 image:
   repository: pharmbio/ml-container
@@ -45,4 +53,8 @@ resources: {}
   #  cpu: "2"
   #  memory: 4000Mi
   #  nvidia.com/gpu: "1"
-´´´
+
+ingress:
+  enabled: true
+  host: k8s-prod.pharmb.io
+```
