@@ -1,19 +1,20 @@
+{{- range .Values.users }}
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "ml-container.fullname" . }}
+  name: "ml-container-{{ . }}"
   labels:
-    app.kubernetes.io/name: {{ include "ml-container.name" . }}
-    helm.sh/chart: {{ include "ml-container.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app: "ml-container-{{ . }}"
+  namespace: labinf
 spec:
-  type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
+  - name: web
+    port: 80
+    protocol: TCP
+    targetPort: 8888
   selector:
-    app.kubernetes.io/name: {{ include "ml-container.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app: "ml-container-{{ . }}"
+  sessionAffinity: None
+  type: ClusterIP
+{{- end }}
