@@ -1,0 +1,97 @@
+{{- range .Values.users }}
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    app: "{{ $.Chart.Name }}-{{ . }}"
+  name: "{{ $.Chart.Name }}-{{ . }}"
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: "{{ $.Chart.Name }}-{{ . }}"
+  template:
+    metadata:
+      labels:
+        app: "{{ $.Chart.Name }}-{{ . }}"
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: acceleration
+                operator: In
+                values:
+                - gpu
+      containers:
+      - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+        imagePullPolicy: {{ $.Values.image.pullPolicy }}
+        name: "{{ $.Chart.Name }}-{{ . }}"
+        lifecycle:
+          postStart:
+            exec:
+              # The php occ commands need to be executed as user "www-data"
+              command:
+                - "su"
+                - "-c"
+                - >
+                  {
+                  echo Wait until apache2 appears in ps-list;
+                  for i in $(seq 1 60); do pgrep "apache2" && break || (echo sleep 1 && sleep 1); done;
+                  echo Add "external" folders;
+                  php /var/www/html/occ app:enable files_external;
+                  php occ files_external:create -c "datadir=/home/{{ . }}" /home/{{ . }} local null::null;
+                  php occ files_external:option 1 enable_sharing true;
+                  php occ files_external:create -c "datadir=/scratch" /scratch local null::null;
+                  php occ files_external:option 2 enable_sharing true;
+                  echo Remove all default files and dirs;
+                  rm /var/www/html/core/skeleton/* -r;
+                  rm /var/www/html/data/admin/files/* -r;
+                  php occ files:scan admin;
+                  echo done;
+                  } &>/tmp/p-s.log
+                - "-s"
+                - "/bin/bash"
+                - "www-data"
+        env:
+        - name: SQLITE_DATABASE
+          value: mydb
+        - name: NEXTCLOUD_ADMIN_USER
+          value: admin
+        - name: NEXTCLOUD_ADMIN_PASSWORD
+          value: password
+        - name: NEXTCLOUD_TRUSTED_DOMAINS
+          value: nextcloud.{{name}}.k8s-prod.pharmb.io
+        ports:
+          - containerPort: 80
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1000Mi"
+          requests:
+            cpu: "100m"
+            memory: 100Mi
+        volumeMounts:
+        - mountPath: /home/{{ . }}
+          name: {{ . }}-home
+        - mountPath: /scratch
+          name: {{ . }}-scratch
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /media/scratch/{{ . }}-home/
+          type: DirectoryOrCreate
+        name: {{ . }}-home
+      - hostPath:
+          path: /media/scratch/{{ . }}
+          type: DirectoryOrCreate
+        name: {{ . }}-scratch
+{{- end }}
