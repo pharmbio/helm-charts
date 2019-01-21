@@ -31,7 +31,7 @@ users:
   - student1
   - student2
 
-password: easy-peasy
+password: easy-peasy-1
 
 image:
   repository: nextcloud
