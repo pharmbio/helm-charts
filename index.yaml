@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   cheese:
   - apiVersion: v1
-    created: 2019-01-19T21:43:42.522293047Z
+    created: 2019-01-21T08:46:10.003821191Z
     description: 'Simple cheese deployment described by Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
-    digest: 07beb541ee26c429965dc79110b3737c0e62a70c7c4e21796f38d44d3e800bc1
+    digest: 2cebc7e1eb8f06fa8fb0d0805b569e3b454840b548ff3a8f8a9191575e18cd4f
     home: https://hub.docker.com/r/errm/cheese
     maintainers:
     - email: marco.capuccini@it.uu.se
@@ -18,9 +18,9 @@ entries:
   ml-container:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-01-19T21:43:42.522543323Z
+    created: 2019-01-21T08:46:10.004100913Z
     description: A Helm chart for Kubernetes
-    digest: 1c1cad75a5869d1ae35e739d53f696d10cf208a5b4dc81b45a8c6f24ea7e6988
+    digest: 8a503dbce97d7fea709a65e9e87c8e7fd55e563db6c6d37e9e44cdf38a862dd7
     name: ml-container
     urls:
     - https://pharmbio.github.io/helm-charts/ml-container-0.1.0.tgz
@@ -28,11 +28,11 @@ entries:
   ml-nextcloud:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-01-19T21:43:42.523350059Z
+    created: 2019-01-21T08:46:10.004858191Z
     description: A Helm chart for Kubernetes
-    digest: a9baa0551b970e8ea447bda633287b87b7904e55d188821d573844d546cc7339
+    digest: fc568fffbd7c427b273f53da86c2c3d869928edb9c2f38a80a99de3068b147db
     name: ml-nextcloud
     urls:
     - https://pharmbio.github.io/helm-charts/ml-nextcloud-0.1.0.tgz
     version: 0.1.0
-generated: 2019-01-19T21:43:42.521794021Z
+generated: 2019-01-21T08:46:10.003324767Z
