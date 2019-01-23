@@ -11,7 +11,7 @@ You can install the Chart via Helm CLI:
     helm install --namespace your-namespace --name ml-nextcloud -f nextcloud-myvals.yaml pharmbio/ml-nextcloud
 
 
-Accessing jupyter notebook
+Accessing the nextcloud interface
 
      # Your access url will be:
      https://nextcloud.<username-from-values-file>.<your-domain>
