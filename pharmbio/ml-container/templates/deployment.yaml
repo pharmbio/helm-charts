@@ -50,6 +50,8 @@ spec:
           name: {{ . }}-home
         - mountPath: /scratch
           name: {{ . }}-scratch
+        - mountPath: /scratch-shared
+          name: scratch-shared
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -64,4 +66,8 @@ spec:
           path: /media/scratch/{{ . }}
           type: DirectoryOrCreate
         name: {{ . }}-scratch
+      - hostPath:
+          path: /media/scratch/shared
+          type: DirectoryOrCreate
+        name: scratch-shared
 {{- end }}
