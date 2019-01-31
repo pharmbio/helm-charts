@@ -14,15 +14,15 @@ image:
   pullPolicy: Always
 
 resources: {}
-  # limits:
-  #  cpu: "4"
-  #  memory: 8000Mi
-  #  nvidia.com/gpu: "1"
-  #  memory: 128Mi
-  # requests:
-  #  cpu: "2"
-  #  memory: 4000Mi
-  #  nvidia.com/gpu: "1"
+  limits:
+    cpu: "4"
+    memory: 8000Mi
+    nvidia.com/gpu: "1"
+    memory: 4000Mi
+  requests:
+    cpu: "1"
+    memory: 1000:Mi
+    nvidia.com/gpu: "1"
 
 ingress:
   enabled: true
