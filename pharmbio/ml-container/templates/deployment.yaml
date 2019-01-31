@@ -44,7 +44,7 @@ spec:
         ports:
           - containerPort: 8888
         resources:
-          {{- toYaml .Values.resources | nindent 12 }}
+          {{- toYaml $.Values.resources | nindent 12 }}
         volumeMounts:
         - mountPath: /home/{{ . }}
           name: {{ . }}-home
