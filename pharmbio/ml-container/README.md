@@ -23,6 +23,9 @@ Accessing jupyter notebook
 
      # e.g
      https://notebook.student1.k8s-prod.pharmb.io
+     
+     # or via kubectl/docker exec method
+     kubectl exec -n your-namespace -it my-ml-container bash
 
 
 Example values file
