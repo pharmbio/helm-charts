@@ -3,26 +3,33 @@
 # Declare variables to be passed into your templates.
 
 users:
-  - student1
-  - student2
+  - pharmbio-user
 
 notebookPasswSha1: "sha1:126256b7627a:408ab6ac552a506d58872aae0ae4386892aa6606"
 
 image:
-  repository: pharmbio/ml-container
+  repository: pharmbio/rancher-notebook
   tag: master
   pullPolicy: Always
 
 resources:
   limits:
     cpu: "4"
-    memory: 8000Mi
-    nvidia.com/gpu: "1"
     memory: 4000Mi
   requests:
     cpu: "1"
-    memory: 1000:Mi
-    nvidia.com/gpu: "1"
+    memory: 1000Mi
+
+gpuAccess:
+  enabled: false
+  gpus: 0
+
+secrets:
+  secretsPath: /credentials
+  secretNames:
+    - chembl-mysql
+    - minio
+    - cpsign-license
 
 ingress:
   enabled: true
