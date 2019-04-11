@@ -8,22 +8,22 @@
 
 #notebookPasswSha1: "sha1:126256b7627a:408ab6ac552a506d58872aae0ae4386892aa6606"
 
-#image:
-#  repository: pharmbio/ml-container
-#  tag: master
-#  pullPolicy: Always
+image:
+  repository: pharmbio/ml-container
+  tag: master
+  pullPolicy: Always
 
-#resources:
-#  limits:
-#    cpu: "4"
-#    memory: 8000Mi
+resources:
+  limits:
+    cpu: "4"
+    memory: 8000Mi
 #    nvidia.com/gpu: "1"
-#  requests:
-#    cpu: "1"
-#    memory: 1000:Mi
+  requests:
+    cpu: "1"
+    memory: 1000:Mi
 #    nvidia.com/gpu: "1"
 
-#ingress:
-#  enabled: true
-#  host: k8s-prod.pharmb.io
+ingress:
+  enabled: true
+  host: k8s-prod.pharmb.io
 
