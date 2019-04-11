@@ -22,7 +22,7 @@ spec:
         path: /
   tls:
   - hosts:
-    - notebook.{{ . }}.{{ $.Values.ingress.host }}
+    - notebook.{{ $.Release.Name }}-{{ . }}.{{ $.Values.ingress.host }}
     secretName: "notebook-tls-{{ $.Release.Name }}-{{ . }}"
 
 {{- end }}
