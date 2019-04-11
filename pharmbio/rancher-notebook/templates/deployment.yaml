@@ -18,6 +18,7 @@ spec:
       labels:
         app: "{{ $.Chart.Name }}-{{ . }}"
     spec:
+      {{- if $.Values.gpuAccess.enabled }}
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -27,13 +28,14 @@ spec:
                 operator: In
                 values:
                 - gpu
+      {{- end }}
       containers:
       - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
         name: "{{ $.Chart.Name }}-{{ . }}"
         command:
           - "jupyter"
-        args: 
+        args:
           - "notebook"
           - "--port"
           - "8888"
@@ -44,7 +46,16 @@ spec:
         ports:
           - containerPort: 8888
         resources:
-          {{- toYaml $.Values.resources | nindent 12 }}
+          limits:
+          {{- toYaml $.Values.resources.limits | nindent 14 }}
+            {{- if $.Values.gpuAccess.enabled -}}
+            nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
+            {{- end }}
+          requests:
+          {{- toYaml $.Values.resources.requests | nindent 14 }}
+            {{- if $.Values.gpuAccess.enabled -}}
+            nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
+            {{- end }}
         volumeMounts:
         - mountPath: /home/{{ . }}
           name: {{ . }}-home
@@ -52,6 +63,10 @@ spec:
           name: {{ . }}-scratch
         - mountPath: /scratch-shared
           name: scratch-shared
+        {{- range $.Values.secrets.secretNames }}
+        - mountPath: {{ $.Values.secrets.secretsPath }}/{{ . }}
+          name: {{ . }}-secret
+        {{- end }}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -70,4 +85,9 @@ spec:
           path: /media/scratch/shared
           type: DirectoryOrCreate
         name: scratch-shared
+      {{- range $.Values.secrets.secretNames }}
+      - secret:
+          secretName: {{ . }}
+        name: {{ . }}-secret
+      {{- end }}
 {{- end }}

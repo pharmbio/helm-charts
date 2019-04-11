@@ -13,7 +13,7 @@ metadata:
   namespace: labinf
 spec:
   rules:
-  - host: notebook.{{ . }}.{{ $.Values.ingress.host }}
+  - host: rancher-notebook.{{ . }}.{{ $.Values.ingress.host }}
     http:
       paths:
       - backend:
@@ -22,7 +22,7 @@ spec:
         path: /
   tls:
   - hosts:
-    - notebook.{{ . }}.{{ $.Values.ingress.host }}
+    - rancher-notebook.{{ . }}.{{ $.Values.ingress.host }}
     secretName: "notebook-tls-{{ $.Chart.Name }}-{{ . }}"
 
 {{- end }}

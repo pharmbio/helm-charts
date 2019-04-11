@@ -5,33 +5,33 @@ You can install the Chart via Helm CLI:
     helm repo add pharmbio https://pharmbio.github.io/helm-charts/
 
     # Add and edit your values.yaml file (example below)
-    vim ml-container-myvals.yaml
-    
+    vim myvals.yaml
+
     # You can create a jupyter-notebook password with the password generator:
-    wget https://raw.githubusercontent.com/pharmbio/helm-charts/master/pharmbio/ml-container/jupyter-hashpass-generator.sh 
+    wget https://raw.githubusercontent.com/pharmbio/helm-charts/master/pharmbio/ml-container/jupyter-hashpass-generator.sh
     chmod +x jupyter-hashpass-generator.sh
     ./jupyter-hashpass-generator.sh <my-password>
 
-    # Install chart 
-    helm install --namespace your-namespace --name my-ml-container -f ml-container-myvals.yaml pharmbio/ml-container
+    # Install chart
+    helm install --namespace your-namespace --name my-rancher-notebook -f myvals.yaml pharmbio/rancher-notebook
 
 
 Accessing jupyter notebook
 
      # Your access url will be:
-     https://notebook.<username-from-values-file>.<your-domain>
+     https://rancher-notebook.<username-from-values-file>.<your-domain>
 
      # e.g
-     https://notebook.student1.k8s-prod.pharmb.io
-     
+     https://rancher-notebook.myname.k8s-prod.pharmb.io
+
      # or via kubectl/docker exec method
-     kubectl exec -n your-namespace -it my-ml-container bash
+     kubectl exec -n your-namespace -it rancher-notebook-myname bash
 
 
 Example values file
 
 ```
-# Default values for ml-container.
+# Default values for rancher-notebook.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -41,8 +41,10 @@ users:
 
 notebookPasswSha1: "sha1:126256b7627a:408ab6ac552a506d58872aae0ae4386892aa6606"
 
+# image and tag for notebook, multiple tags may exist with different tools preinstalled, check at:
+# https://cloud.docker.com/u/pharmbio/repository/docker/pharmbio/notebook-playground
 image:
-  repository: pharmbio/ml-container
+  repository: pharmbio/notebook-playground
   tag: master
   pullPolicy: Always
 
