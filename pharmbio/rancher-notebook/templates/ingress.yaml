@@ -1,0 +1,30 @@
+{{- if .Values.ingress.enabled -}}
+{{- range .Values.users }}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  labels:
+    app: "{{ $.Chart.Name }}-{{ . }}"
+  name: "{{ $.Chart.Name }}-{{ . }}"
+  namespace: labinf
+spec:
+  rules:
+  - host: notebook.{{ . }}.{{ $.Values.ingress.host }}
+    http:
+      paths:
+      - backend:
+          serviceName: "{{ $.Chart.Name }}-{{ . }}"
+          servicePort: 80
+        path: /
+  tls:
+  - hosts:
+    - notebook.{{ . }}.{{ $.Values.ingress.host }}
+    secretName: "notebook-tls-{{ $.Chart.Name }}-{{ . }}"
+
+{{- end }}
+{{- end }}
+
