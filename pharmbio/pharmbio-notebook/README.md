@@ -1,3 +1,7 @@
+# Pharmbio notebook
+A helm chart for deploying on-demand notebooks with access to different services running in the rancher cluster. Meant to be the goto environment when a user wants to interact with these services. See [below](#available-services) for what services are available and how to interact with them.
+
+
 ## Installing the Chart
 You can install the Chart via Helm CLI:
 
@@ -16,7 +20,7 @@ You can install the Chart via Helm CLI:
     helm install --namespace your-namespace --name my-pharmbio-notebook -f myvals.yaml pharmbio/pharmbio-notebook
 
 
-Accessing jupyter notebook
+### Accessing jupyter notebook
 
      # Your access url will be:
      https://pharmbio-notebook.<username-from-values-file>.<your-domain>
@@ -28,7 +32,7 @@ Accessing jupyter notebook
      kubectl exec -n your-namespace -it pharmbio-notebook-myname bash
 
 
-Example values file
+### Example values file
 
 ```
 # Default values for pharmbio-notebook.
@@ -63,3 +67,23 @@ ingress:
   enabled: true
   host: k8s-prod.pharmb.io
 ```
+
+## Accessing credentials
+
+## Available services
+### chembl database
+MySQL database with [chembl](https://www.ebi.ac.uk/chembl/), accessible with the commandline tool `mysql` or in python via `pymysql`
+
+Connecting via commandline: 
+
+`mysql -u root -h chembl-mysql -A -p`
+
+This prompts for the password, see [above](#accessing-credentials) for how to get the password, alternatively you can set it as an environment variable and provide it as such:
+
+```
+export MYSQL_PASSWORD=<password>
+mysql -u root -h chembl-mysql -A -p $MYSQL_PASSWORD
+```
+
+
+
