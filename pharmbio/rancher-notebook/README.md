@@ -13,25 +13,25 @@ You can install the Chart via Helm CLI:
     ./jupyter-hashpass-generator.sh <my-password>
 
     # Install chart
-    helm install --namespace your-namespace --name my-rancher-notebook -f myvals.yaml pharmbio/rancher-notebook
+    helm install --namespace your-namespace --name my-pharmbio-notebook -f myvals.yaml pharmbio/pharmbio-notebook
 
 
 Accessing jupyter notebook
 
      # Your access url will be:
-     https://rancher-notebook.<username-from-values-file>.<your-domain>
+     https://pharmbio-notebook.<username-from-values-file>.<your-domain>
 
      # e.g
-     https://rancher-notebook.myname.k8s-prod.pharmb.io
+     https://pharmbio-notebook.myname.k8s-prod.pharmb.io
 
      # or via kubectl/docker exec method
-     kubectl exec -n your-namespace -it rancher-notebook-myname bash
+     kubectl exec -n your-namespace -it pharmbio-notebook-myname bash
 
 
 Example values file
 
 ```
-# Default values for rancher-notebook.
+# Default values for pharmbio-notebook.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
