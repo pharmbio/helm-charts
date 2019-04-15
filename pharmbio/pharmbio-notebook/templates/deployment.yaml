@@ -18,7 +18,7 @@ spec:
       labels:
         app: "{{ $.Release.Name }}-{{ . }}"
     spec:
-      {{- if $.Values.gpuAccess.enabled }}
+      {{- if or $.Values.gpuAccess.enabled $.Values.tfSupport.enabled}}
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
