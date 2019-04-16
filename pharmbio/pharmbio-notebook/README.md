@@ -37,7 +37,7 @@ The following values can be configured in the `values.yaml` file, or set as comm
 | `*.requests.cpu`            | Minimum cpu              | `1`                          |
 | `*.*.memory`                | Minimum memory           | `1000Mi`                     |
 | `gpuAccess.enabled`         | Gpu access available     | `false`                      |
-| `*.gpus`                    | Number of gpus           | `0`                          |    
+| `*.gpus`                    | Number of gpus           | `0`                          |
 | `tfSupport.enabled`         | Support for TensorFlow   | `true`                       |
 | `secrets.secretsPath`       | Secrets path in notebook | `/credentials`               |
 | `*.secretNames`             | Secrets to mount         | _see values.yaml_            |
@@ -62,12 +62,19 @@ Refer to the yaml file for more detailed descriptions of some of the fields.
 
 
 ## Accessing credentials
+Secret will be mounted at the location specified in the values file, and can be accessed like this
+
+```cat /credentials/<secret-name>/<secret key>```
+
+, which will print the value of `<secret key>`. You can describe secrets in kubectl with `kubectl describe secret <name>`, provided you have access, to see what keys are available.
+
+In the _pharmbio/pharmbio-notebook_ container images, there will also be both a notebook and python script which can print the contents of all mounted secrets.
 
 ## Available services
-### chembl database
+### Chembl database
 MySQL database with [chembl](https://www.ebi.ac.uk/chembl/), accessible with the commandline tool `mysql` or in python via `pymysql`
 
-Connecting via commandline: 
+Connecting via commandline:
 
 `mysql -u root -h chembl-mysql -A -p`
 
@@ -78,5 +85,23 @@ export MYSQL_PASSWORD=<password>
 mysql -u root -h chembl-mysql -A -p $MYSQL_PASSWORD
 ```
 
+### Pachyderm
+Pachyderm can be interacted with either via pachctl or via python client.
+
+To use pachctl, first set the ADDRESS environment variable with
+
+```export ADDRESS=pachd.labinf.svc.cluster.local:650```
+
+For using the python client, the host is `pachd.labinf.svc.cluster.local` and port 650. See https://github.com/pachyderm/python-pachyderm/blob/master/examples/opencv.py for a simple example of usage
+
+### Minio s3 storage
+Currently there is a Minio S3 server hosted in the cluster, with a volume on the NFS. This can for example be accessed via the aws commandline client. First you'll need to set the minio credentials to environment variables, which can be done by sourcing this convenient script (provided you mounted the secret called _minio_):
+
+```source /home/source_minio_credentials.rc```
+
+, which sets the environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY. Then you can interact with minio (or any other S3 storage if you provide you own credentials and endpoint) like this:
 
 
+```aws s3 --endpoint minio.labinf.svc.cluster.local:9000 <command...>```
+
+Refer to `aws s3 help` and/or the [aws documentation](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) for more help on connecting
