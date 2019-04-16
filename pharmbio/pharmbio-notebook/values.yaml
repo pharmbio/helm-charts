@@ -5,7 +5,7 @@
 users:
   - pharmbio-user
 
-notebookPasswSha1: "sha1:126256b7627a:408ab6ac552a506d58872aae0ae4386892aa6606"
+notebookPasswSha1: null
 
 image:
   repository: pharmbio/pharmbio-notebook
