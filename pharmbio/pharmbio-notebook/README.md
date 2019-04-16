@@ -22,7 +22,7 @@ You can install the Chart via Helm CLI:
 ### Settings for notebook deployment
 The following values can be configured in the `values.yaml` file, or set as command line arguments for helm with `--set <parameter>=<value>`:
 
-**_Note!_** If the given tag has no gpu support and you don't enable TensorFlow support, python will exit when trying to import tensorflow, even if it seems to be installed. Enable TF support to run TF on CPU if GPU's are not used.
+**_Note!_** If the given tag has no GPU support and you don't enable TensorFlow support, python will exit when trying to import tensorflow, even if it seems to be installed. Enable TF support to run TF on CPU if GPU's are not used.
 
 
 | Parameter                   | Description              | Default                      |
