@@ -19,6 +19,33 @@ You can install the Chart via Helm CLI:
     # Install chart
     helm install --namespace your-namespace --name my-pharmbio-notebook -f myvals.yaml pharmbio/pharmbio-notebook
 
+### Settings for notebook deployment
+The following values can be configured in the `values.yaml` file, or set as command line arguments for helm with `--set <parameter>=<value>`:
+
+**_Note!_** If the given tag has no gpu support and you don't enable TensorFlow support, python will exit when trying to import tensorflow, even if it seems to be installed. Enable TF support to run TF on CPU if GPU's are not used.
+
+
+| Parameter                   | Description              | Default                      |
+|-----------------------------|--------------------------|------------------------------|
+| `users`                     | Users in notebook        | `{pharmbio-user}`            |
+| `notebookPasswSha1`         | Notebook password hash   | `nil`                        |
+| `image.repository`          | Image docker repo        | `pharmbio/pharmbio-notebook` |
+| `*.tag`                     | Image tag                | `latest`                     |
+| `*.pullPolicy`              | Image pull policy        | `Always`                     |
+| `resources.limits.cpu`      | Cpu limit                | `4`                          |
+| `*.*.memory`                | Memory limit             | `4000Mi`                     |
+| `*.requests.cpu`            | Minimum cpu              | `1`                          |
+| `*.*.memory`                | Minimum memory           | `1000Mi`                     |
+| `gpuAccess.enabled`         | Gpu access available     | `false`                      |
+| `*.gpus`                    | Number of gpus           | `0`                          |    
+| `tfSupport.enabled`         | Support for TensorFlow   | `true`                       |
+| `secrets.secretsPath`       | Secrets path in notebook | `/credentials`               |
+| `*.secretNames`             | Secrets to mount         | _see values.yaml_            |
+| `ingress.enabled`           | Ingress to notebook      | `true`                       |
+| `*.host`                    | Ingress hostname         | `k8s-prod.pharmb.io`         |
+
+Refer to the yaml file for more detailed descriptions of some of the fields.
+
 
 ### Accessing jupyter notebook
 
@@ -32,41 +59,7 @@ You can install the Chart via Helm CLI:
      kubectl exec -n your-namespace -it pharmbio-notebook-myname bash
 
 
-### Example values file
 
-```
-# Default values for pharmbio-notebook.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-users:
-  - student1
-  - student2
-
-notebookPasswSha1: "sha1:126256b7627a:408ab6ac552a506d58872aae0ae4386892aa6606"
-
-# image and tag for notebook, multiple tags may exist with different tools preinstalled, check at:
-# https://cloud.docker.com/u/pharmbio/repository/docker/pharmbio/notebook-playground
-image:
-  repository: pharmbio/notebook-playground
-  tag: master
-  pullPolicy: Always
-
-resources: {}
-  # limits:
-  #  cpu: "4"
-  #  memory: 8000Mi
-  #  nvidia.com/gpu: "1"
-  #  memory: 128Mi
-  # requests:
-  #  cpu: "2"
-  #  memory: 4000Mi
-  #  nvidia.com/gpu: "1"
-
-ingress:
-  enabled: true
-  host: k8s-prod.pharmb.io
-```
 
 ## Accessing credentials
 
