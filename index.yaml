@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   cheese:
   - apiVersion: v1
-    created: 2019-04-16T15:18:57.169419647Z
+    created: 2019-04-16T16:18:04.9067875Z
     description: 'Simple cheese deployment described by Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
-    digest: 2b2d09dfe8b25a37a8ec71d5ca2dc937708cd15d1580c1b2305847990e2eba08
+    digest: 67bfb0005ca46da007ce23b88ded36851f1e9cecec81f2cd4ed00270cfff381f
     home: https://hub.docker.com/r/errm/cheese
     maintainers:
     - email: marco.capuccini@it.uu.se
@@ -18,9 +18,9 @@ entries:
   ml-container:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-04-16T15:18:57.169693638Z
+    created: 2019-04-16T16:18:04.907046875Z
     description: A Helm chart for Kubernetes
-    digest: ef3eadc25fa89aa8a47638ce60cc785cd8441cd873533ac62554640db18ce9cd
+    digest: d78991c202a84ae908a905365a6650f8d68a276994a26af2efaa4607bbc0b446
     name: ml-container
     urls:
     - https://pharmbio.github.io/helm-charts/ml-container-0.1.0.tgz
@@ -28,9 +28,9 @@ entries:
   ml-nextcloud:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-04-16T15:18:57.169927809Z
+    created: 2019-04-16T16:18:04.907362919Z
     description: A Helm chart for Kubernetes
-    digest: 272c4ff7be7e17580d28b466572b2f401e80a4d11cd7f59e603a8101b2678b42
+    digest: 480c259e99f92730b4274e722e62663f2828448a1dfdffd67b8826e446255b70
     name: ml-nextcloud
     urls:
     - https://pharmbio.github.io/helm-charts/ml-nextcloud-0.1.0.tgz
@@ -38,11 +38,11 @@ entries:
   pharmbio-notebook:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-04-16T15:18:57.170745832Z
+    created: 2019-04-16T16:18:04.907976007Z
     description: A Helm chart for Kubernetes
-    digest: dc9f7ae4e4a026deb8d3793a9f30464593faeaa6d26d9dbe9b70b47c6e12c634
+    digest: 39edff7058544d528931bb7a8bd9d6938d2b7681b7120b0966fdbef09f15bcb6
     name: pharmbio-notebook
     urls:
     - https://pharmbio.github.io/helm-charts/pharmbio-notebook-0.1.0.tgz
     version: 0.1.0
-generated: 2019-04-16T15:18:57.168977827Z
+generated: 2019-04-16T16:18:04.906313541Z
