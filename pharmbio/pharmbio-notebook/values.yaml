@@ -35,3 +35,6 @@ ingress:
   enabled: true
   host: k8s-prod.pharmb.io
 
+extraVolumeClaims:
+  - livecell-pvc
+

@@ -67,6 +67,10 @@ spec:
         - mountPath: {{ $.Values.secrets.secretsPath }}/{{ . }}
           name: {{ . }}-secret
         {{- end }}
+        {{- range $.Values.extraVolumeClaims }}
+        - mountPath: /home/share/{{ . }}
+          name: {{ . }}
+        {{- end }}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -89,5 +93,10 @@ spec:
       - secret:
           secretName: {{ . }}
         name: {{ . }}-secret
+      {{- end }}
+      {{- range $.Values.extraVolumeClaims }}
+      - persistentVolumeClaim:
+          claimName: {{ . }}
+        name: {{ . }}
       {{- end }}
 {{- end }}
