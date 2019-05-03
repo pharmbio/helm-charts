@@ -13,7 +13,7 @@ metadata:
   namespace: labinf
 spec:
   rules:
-  - host: pharmbio-notebook.{{ . }}.{{ $.Values.ingress.host }}
+  - host: pharmbio-notebook.{{ $.Release.Name }}-{{ . }}.{{ $.Values.ingress.host }}
     http:
       paths:
       - backend:
