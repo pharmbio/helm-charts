@@ -13,7 +13,7 @@ metadata:
   namespace: labinf
 spec:
   rules:
-  - host: notebook.{{ $.Release.Name }}-{{ . }}.{{ $.Values.ingress.host }}
+  - host: pharmbio-notebook.{{ $.Release.Name }}-{{ . }}.{{ $.Values.ingress.host }}
     http:
       paths:
       - backend:
@@ -22,7 +22,7 @@ spec:
         path: /
   tls:
   - hosts:
-    - notebook.{{ $.Release.Name }}-{{ . }}.{{ $.Values.ingress.host }}
+    - pharmbio-notebook.{{ $.Release.Name }}-{{ . }}.{{ $.Values.ingress.host }}
     secretName: "notebook-tls-{{ $.Release.Name }}-{{ . }}"
 
 {{- end }}
