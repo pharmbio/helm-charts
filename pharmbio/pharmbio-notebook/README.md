@@ -14,7 +14,7 @@ You can install the Chart via Helm CLI:
     # You can create a jupyter-notebook password with the password generator:
     wget https://raw.githubusercontent.com/pharmbio/helm-charts/master/pharmbio/ml-container/jupyter-hashpass-generator.sh
     chmod +x jupyter-hashpass-generator.sh
-    ./jupyter-hashpass-generator.sh <my-password>
+    ./jupyter-hashpass-generator.sh
 
     # Install chart
     helm install --namespace your-namespace --name my-pharmbio-notebook -f myvals.yaml pharmbio/pharmbio-notebook
