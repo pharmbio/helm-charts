@@ -27,9 +27,7 @@ gpuAccess:
 secrets:
   secretsPath: /credentials
   secretNames:
-    - chembl-mysql
-    - minio
-    - cpsign-license
+    - mysql-chembl-credentials
 
 ingress:
   enabled: true
