@@ -26,7 +26,7 @@ spec:
         - name: etcdvol
         {{- if .Values.etcd.persistence.enabled }}
           persistentVolumeClaim:
-            claimName: {{ template "etcd.fullname" . }}-pvc
+            claimName: {{ if .Values.etcd.persistence.existingClaim }}{{ .Values.etcd.persistence.existingClaim }}{{ else }}{{ template "etcd.fullname" . }}-pvc{{ end }}
         {{- else }}
           hostPath:
            path: "/var/pachyderm/etcd"

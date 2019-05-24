@@ -6,6 +6,9 @@ rbac:
 ## Set default credentials for object store
 credentials: "local"
 
+## Name of existing secret with object store credentials.
+# existingSecret: ""
+
 ## S3 endpoint (i.e: Minio server) credentials
 s3:
  accessKey: ""
@@ -30,6 +33,7 @@ amazon:
  distribution: ""
  id: ""
  region: ""
+ roleArn: ""
  secret: ""
  token: ""
 
@@ -41,25 +45,31 @@ microsoft:
 
 ## Set default image settings, resource requests and number of replicas of pachd
 pachd:
+ exposeObjApi: false
  replicaCount: 1
  ## Size of pachd's in-memory cache for PFS files. Size is specified in bytes, with allowed SI suffixes (M, K, G, Mi, Ki, Gi, etc).
  pfsCache: 0G
  ## For available images please check: https://hub.docker.com/r/pachyderm/pachd/tags/
  image:
   repository: pachyderm/pachd
-  tag: 1.7.10
+  tag: 1.8.6
   pullPolicy: Always
  worker:
   repository: pachyderm/worker
-  tag: 1.7.10
+  tag: 1.8.6
  resources:
   ## For non-local deployments, 1 cpu and 2G of memory requests are recommended
   requests:
-   cpu: 500m
-   memory: 1G
-  limits:
-   cpu: 1000m
-   memory: 2G
+   cpu: 250m
+   memory: 512M
+  # limits:
+  #  cpu: 250m
+  #  memory: 512M
+ service:
+  grpc:
+   annotations: {}
+   port: 30650
+   type: NodePort
 
 ## Set default image settings and persistence settings of etcd
 etcd:
@@ -71,7 +81,7 @@ etcd:
   ## Enable persistence using Persistent Volume Claims
   ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
  persistence:
-  enabled: true
+  enabled: false
   ## etcd data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -83,11 +93,14 @@ etcd:
   size: 20G
   ## Set default PVC access mode: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
   accessMode: ReadWriteOnce
+  ## Use an existing PVC to persist etcd data
+  # existingClaim: ""
+
  resources:
   ## For non-local deployments, 1 cpu and 2G of memory requests are recommended
   requests:
-   cpu: 500m
-   memory: 1G
-  limits:
-   cpu: 1000m
-   memory: 2G
+   cpu: 250m
+   memory: 256M
+  # limits:
+  #  cpu: 250m
+  #  memory: 512M

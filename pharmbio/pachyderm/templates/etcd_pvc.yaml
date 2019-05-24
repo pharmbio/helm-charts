@@ -1,9 +1,9 @@
 ---
-{{- if .Values.etcd.persistence.enabled }}
+{{- if and .Values.etcd.persistence.enabled (not .Values.etcd.persistence.existingClaim) }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "etcd.fullname" . }}-pvc
+  name: {{ if .Values.etcd.persistence.existingClaim }}{{ .Values.etcd.persistence.existingClaim }}{{ else }}{{ template "etcd.fullname" . }}-pvc{{ end }}
 spec:
   accessModes:
     - {{ .Values.etcd.persistence.accessMode | quote }}
