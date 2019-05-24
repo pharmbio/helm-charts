@@ -1,0 +1,29 @@
+# Default values for nextcloud.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+users:
+  - student1
+  - student2
+
+password: easy-peasy
+
+image:
+  repository: nextcloud
+  tag: 15.0.2-apache
+  pullPolicy: Always
+
+resources: {}
+  # limits:
+  #   cpu: "1"
+  #   memory: "1000Mi"
+  # requests:
+  #   cpu: "100m"
+  #   memory: 100Mi
+
+existingClaim: ""
+
+ingress:
+  enabled: true
+  host: k8s-prod.pharmb.io
+
