@@ -14,7 +14,7 @@ metadata:
   namespace: labinf
 spec:
   rules:
-  - host: nextcloud.{{ . }}.{{ $.Values.ingress.host }}
+  - host: nextcloud.k8s-prod.pharmb.io
     http:
       paths:
       - backend:
@@ -23,7 +23,7 @@ spec:
         path: /
   tls:
   - hosts:
-    - nextcloud.{{ . }}.{{ $.Values.ingress.host }}
+    - nextcloud.k8s-prod.pharmb.io
     secretName: "nextcloud-tls-{{ $.Chart.Name }}-{{ . }}"
 
 {{- end }}
