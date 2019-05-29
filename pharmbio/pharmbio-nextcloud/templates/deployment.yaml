@@ -38,8 +38,22 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: "{{ .Release.Name }}"
         env:
+        {{- if not .Values.externalDatabase.enabled }}
         - name: SQLITE_DATABASE
           value: mydb
+        {{- else}}
+        - name: MYSQL_HOST
+          value: {{ .Values.externalDatabase.host | quote }}
+        - name: MYSQL_DATABASE
+          value: {{ .Values.externalDatabase.database | quote }}
+        - name: MYSQL_USER
+          value: {{ .Values.externalDatabase.user | quote }}
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.externalDatabase.passwordSecret | quote }}
+              key: mysql-password
+        {{- end}}
         - name: NEXTCLOUD_ADMIN_USER
           value: {{ if .Values.user.username}}{{ .Values.user.username }}{{else}}admin{{end}}
         - name: NEXTCLOUD_ADMIN_PASSWORD

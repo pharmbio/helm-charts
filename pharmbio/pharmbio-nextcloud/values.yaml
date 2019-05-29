@@ -20,6 +20,21 @@ resources: {}
 persistence:
  existingClaim: "nextcloud-pvc"
 
+externalDatabase:
+  enabled: false
+
+  ## Database host
+  host:
+
+  ## Database user
+  user: nextcloud
+
+  ## Database password
+  passwordSecret:
+
+  ## Database name
+  database: nextcloud
+
 ingress:
   enabled: false
   annotations:
