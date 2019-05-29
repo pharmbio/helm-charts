@@ -1,12 +1,10 @@
-{{- range .Values.users }}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ $.Chart.Name }}-{{ . }}"
+  name: "{{ .Release.Name }}"
   labels:
-    app: "{{ $.Chart.Name }}-{{ . }}"
-  namespace: labinf
+    app: "{{ .Release.Name }}"
 spec:
   ports:
   - name: web
@@ -14,7 +12,6 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: "{{ $.Chart.Name }}-{{ . }}"
+    app: "{{ .Release.Name }}"
   sessionAffinity: None
   type: ClusterIP
-{{- end }}
