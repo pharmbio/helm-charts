@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   cheese:
   - apiVersion: v1
-    created: 2019-07-08T15:38:10.183741236+02:00
+    created: 2019-07-08T16:01:41.454676205+02:00
     description: 'Simple cheese deployment described by Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
     digest: b77bd593c97e9554d1a10bbc30ce035ba78d5d5f5dcc1f8a2a386eaa55216796
     home: https://hub.docker.com/r/errm/cheese
@@ -13,46 +13,46 @@ entries:
     sources:
     - https://github.com/errm/cheese
     urls:
-    - https://github.com/pharmbio/helm-charts/tree/helm-server/pharmbio/charts/cheese-0.1.0.tgz
+    - https://github.com/pharmbio/helm-charts/tree/helm-server/charts/cheese-0.1.0.tgz
     version: 0.1.0
   ml-container:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-07-08T15:38:10.184119682+02:00
+    created: 2019-07-08T16:01:41.454972501+02:00
     description: A Helm chart for Kubernetes
     digest: a0276bef12eee456fa1cd398254f976b3ed92a3c0c7d33ea3e322fffe1b64357
     name: ml-container
     urls:
-    - https://github.com/pharmbio/helm-charts/tree/helm-server/pharmbio/charts/ml-container-0.1.0.tgz
+    - https://github.com/pharmbio/helm-charts/tree/helm-server/charts/ml-container-0.1.0.tgz
     version: 0.1.0
   ml-nextcloud:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-07-08T15:38:10.184474133+02:00
+    created: 2019-07-08T16:01:41.455253561+02:00
     description: A Helm chart for Kubernetes
     digest: baaec1c6b43f697229968deceda78f7633d442e2d69e13cc170a5fb69ada6add
     name: ml-nextcloud
     urls:
-    - https://github.com/pharmbio/helm-charts/tree/helm-server/pharmbio/charts/ml-nextcloud-0.1.0.tgz
+    - https://github.com/pharmbio/helm-charts/tree/helm-server/charts/ml-nextcloud-0.1.0.tgz
     version: 0.1.0
   pharmbio-notebook:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-07-08T15:38:10.184881101+02:00
+    created: 2019-07-08T16:01:41.455617645+02:00
     description: A Helm chart for Kubernetes
     digest: daa2bb6850f61a2e3afae22ed072be3d07e805f945975d8af293f0c44d7f424c
     name: pharmbio-notebook
     urls:
-    - https://github.com/pharmbio/helm-charts/tree/helm-server/pharmbio/charts/pharmbio-notebook-0.1.0.tgz
+    - https://github.com/pharmbio/helm-charts/tree/helm-server/charts/pharmbio-notebook-0.1.0.tgz
     version: 0.1.0
   rstudio:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2019-07-08T15:38:10.185200149+02:00
+    created: 2019-07-08T16:01:41.455891009+02:00
     description: A Helm chart for Kubernetes
     digest: 1ffd2c332c98cd798dd98f46fec683776840021c7d35207c1b1faeaeaf4e0617
     name: rstudio
     urls:
-    - https://github.com/pharmbio/helm-charts/tree/helm-server/pharmbio/charts/rstudio-0.1.0.tgz
+    - https://github.com/pharmbio/helm-charts/tree/helm-server/charts/rstudio-0.1.0.tgz
     version: 0.1.0
-generated: 2019-07-08T15:38:10.183106618+02:00
+generated: 2019-07-08T16:01:41.454191227+02:00
