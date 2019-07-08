@@ -1,0 +1,41 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+  name: cheese
+spec:
+  rules:
+  - host: cheddar.{{ .Values.domain }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: cheddar
+          servicePort: http
+  - host: wensleydale.{{ .Values.domain }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: wensleydale
+          servicePort: http
+  - host: stilton.{{ .Values.domain }}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: stilton
+          servicePort: http 
+  tls:
+  - hosts:
+    - cheddar.{{ .Values.domain }}
+    secretName: cheddar-cheese-tls-secret
+  - hosts:
+    - wensleydale.{{ .Values.domain }}
+    secretName: wensleydale-cheese-tls-secret
+  - hosts:
+    - stilton.{{ .Values.domain }}
+    secretName: stilton-cheese-tls-secret

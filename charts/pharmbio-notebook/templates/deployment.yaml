@@ -1,0 +1,102 @@
+{{- range .Values.users }}
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    app: "{{ $.Release.Name }}-{{ . }}"
+  name: "{{ $.Release.Name }}-{{ . }}"
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: "{{ $.Release.Name }}-{{ . }}"
+  template:
+    metadata:
+      labels:
+        app: "{{ $.Release.Name }}-{{ . }}"
+    spec:
+      {{- if or $.Values.gpuAccess.enabled $.Values.tfSupport.enabled}}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: acceleration
+                operator: In
+                values:
+                - gpu
+      {{- end }}
+      containers:
+      - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+        imagePullPolicy: {{ $.Values.image.pullPolicy }}
+        name: "{{ $.Release.Name }}-{{ . }}"
+        command:
+          - "jupyter"
+        args:
+          - "notebook"
+          - "--port"
+          - "8888"
+          - "--no-browser"
+          - "--allow-root"
+          - "--NotebookApp.password='{{ $.Values.notebookPasswSha1 }}'"
+          - "--NotebookApp.allow_password_change=True"
+        ports:
+          - containerPort: 8888
+        resources:
+          limits:
+          {{- toYaml $.Values.resources.limits | nindent 14 }}
+            {{- if $.Values.gpuAccess.enabled -}}
+            nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
+            {{- end }}
+          requests:
+          {{- toYaml $.Values.resources.requests | nindent 14 }}
+            {{- if $.Values.gpuAccess.enabled -}}
+            nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
+            {{- end }}
+        volumeMounts:
+        - mountPath: /home/{{ . }}
+          name: {{ . }}-home
+        - mountPath: /scratch
+          name: {{ . }}-scratch
+        - mountPath: /scratch-shared
+          name: scratch-shared
+        {{- range $.Values.secrets.secretNames }}
+        - mountPath: {{ $.Values.secrets.secretsPath }}/{{ . }}
+          name: {{ . }}-secret
+        {{- end }}
+        {{- range $.Values.extraVolumeClaims }}
+        - mountPath: /home/share/{{ . }}
+          name: {{ . }}
+        {{- end }}
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /media/scratch/{{ . }}-home/
+          type: DirectoryOrCreate
+        name: {{ . }}-home
+      - hostPath:
+          path: /media/scratch/{{ . }}
+          type: DirectoryOrCreate
+        name: {{ . }}-scratch
+      - hostPath:
+          path: /media/scratch/shared
+          type: DirectoryOrCreate
+        name: scratch-shared
+      {{- range $.Values.secrets.secretNames }}
+      - secret:
+          secretName: {{ . }}
+        name: {{ . }}-secret
+      {{- end }}
+      {{- range $.Values.extraVolumeClaims }}
+      - persistentVolumeClaim:
+          claimName: {{ . }}
+        name: {{ . }}
+      {{- end }}
+{{- end }}
