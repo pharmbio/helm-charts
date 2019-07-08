@@ -19,7 +19,7 @@ entries:
   - apiVersion: v1
     appVersion: "1.0"
     created: 2019-07-08T15:25:20.23942678+02:00
-    description: A Helm chart for Kubernetes
+    description: 'A Helm chart for Kubernetes'
     digest: a0276bef12eee456fa1cd398254f976b3ed92a3c0c7d33ea3e322fffe1b64357
     name: ml-container
     urls:
@@ -29,7 +29,7 @@ entries:
   - apiVersion: v1
     appVersion: "1.0"
     created: 2019-07-08T15:25:20.23971261+02:00
-    description: A Helm chart for Kubernetes
+    description: 'A Helm chart for Kubernetes'
     digest: baaec1c6b43f697229968deceda78f7633d442e2d69e13cc170a5fb69ada6add
     name: ml-nextcloud
     urls:
@@ -39,7 +39,7 @@ entries:
   - apiVersion: v1
     appVersion: "1.0"
     created: 2019-07-08T15:25:20.240067162+02:00
-    description: A Helm chart for Kubernetes
+    description: 'A Helm chart for Kubernetes'
     digest: daa2bb6850f61a2e3afae22ed072be3d07e805f945975d8af293f0c44d7f424c
     name: pharmbio-notebook
     urls:
@@ -49,7 +49,7 @@ entries:
   - apiVersion: v1
     appVersion: "1.0"
     created: 2019-07-08T15:25:20.240349609+02:00
-    description: A Helm chart for Kubernetes
+    description: 'A Helm chart for Kubernetes'
     digest: 1ffd2c332c98cd798dd98f46fec683776840021c7d35207c1b1faeaeaf4e0617
     name: rstudio
     urls:
