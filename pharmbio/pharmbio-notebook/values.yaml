@@ -34,5 +34,5 @@ ingress:
   host: k8s-prod.pharmb.io
 
 extraVolumeClaims:
-  - livecell-pvc
+  - micro-images-pvc
 
