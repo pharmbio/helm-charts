@@ -9,7 +9,7 @@ notebookPasswSha1: null
 
 image:
   repository: pharmbio/pharmbio-notebook
-  tag: master
+  tag: latest
   pullPolicy: Always
 
 resources:
@@ -20,10 +20,16 @@ resources:
     cpu: "1"
     memory: 1000Mi
 
+# If enabled, will add gpu resource request/limit for provided number of gpus
 gpuAccess:
   enabled: false
   gpus: 0
 
+# If enabled, will run on machine that can run Tensorflow on CPU, even if GPU is disabled
+tfSupport:
+  enabled: true
+
+# Each secret under secretNames will be mounted to the secretsPath folder in the container, see `kubectl get secrets` to list all visible secrets
 secrets:
   secretsPath: /credentials
   secretNames:
