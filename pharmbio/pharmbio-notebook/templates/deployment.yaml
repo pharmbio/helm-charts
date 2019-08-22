@@ -68,7 +68,7 @@ spec:
           name: {{ . }}-secret
         {{- end }}
         {{- range $.Values.extraVolumeClaims }}
-        - mountPath: /home/share/{{ . }}
+        - mountPath: /mnt/{{ . }}
           name: {{ . }}
         {{- end }}
       dnsPolicy: ClusterFirst
