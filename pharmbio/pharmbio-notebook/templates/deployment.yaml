@@ -57,10 +57,9 @@ spec:
             nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
             {{- end }}
         volumeMounts:
-        - mountPath: /home/{{ . }}
-          name: {{ . }}-home
-        - mountPath: /scratch
-          name: {{ . }}-scratch
+        - mountPath: /home/
+          name: notebook-home
+          subPath: {{ . }}-home
         - mountPath: /scratch-shared
           name: scratch-shared
         {{- range $.Values.secrets.secretNames }}
@@ -77,26 +76,21 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-      - hostPath:
-          path: /media/scratch/{{ . }}-home/
-          type: DirectoryOrCreate
-        name: {{ . }}-home
-      - hostPath:
-          path: /media/scratch/{{ . }}
-          type: DirectoryOrCreate
-        name: {{ . }}-scratch
-      - hostPath:
+      - name: notebook-home
+        persistentVolumeClaim:
+          claimName: notebook-homes-pvc
+      - name: scratch-shared
+        hostPath:
           path: /media/scratch/shared
           type: DirectoryOrCreate
-        name: scratch-shared
       {{- range $.Values.secrets.secretNames }}
-      - secret:
+      - name: {{ . }}-secret
+        secret:
           secretName: {{ . }}
-        name: {{ . }}-secret
       {{- end }}
       {{- range $.Values.extraVolumeClaims }}
-      - persistentVolumeClaim:
+      - name: {{ . }}      
+        persistentVolumeClaim:
           claimName: {{ . }}
-        name: {{ . }}
       {{- end }}
 {{- end }}
