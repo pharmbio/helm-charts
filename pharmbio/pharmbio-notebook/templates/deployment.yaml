@@ -29,6 +29,10 @@ spec:
                 values:
                 - gpu
       {{- end }}
+      {{- if $.Values.nodeSelector}}
+      nodeSelector:
+        {{toYaml $.Values.nodeSelector}}
+      {{- end}}
       containers:
       - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}

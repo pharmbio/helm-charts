@@ -45,3 +45,5 @@ ingress:
 extraVolumeClaims:
   - micro-images-pvc
 
+nodeSelector: {}
+
