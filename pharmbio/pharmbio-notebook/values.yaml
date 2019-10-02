@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 users:
-  - pharmbio-user
+  - anders
 
 notebookPasswSha1: null
 
@@ -11,7 +11,7 @@ notebookPasswSha1: null
 # https://cloud.docker.com/u/pharmbio/repository/docker/pharmbio/pharmbio-notebook
 image:
   repository: pharmbio/pharmbio-notebook
-  tag: 1.12.0-py3
+  tag: tf-1.14.0-gpu
   pullPolicy: Always
 
 resources:
@@ -24,7 +24,7 @@ resources:
 
 # If enabled, will add gpu resource request/limit for provided number of gpus
 gpuAccess:
-  enabled: false
+  enabled: true
   gpus: 0
 
 # If enabled, will run on machine that can run Tensorflow on CPU, even if GPU is disabled

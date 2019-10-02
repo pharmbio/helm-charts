@@ -7,6 +7,10 @@ metadata:
     app: "{{ $.Release.Name }}-{{ . }}"
   name: "{{ $.Release.Name }}-{{ . }}"
 spec:
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
   progressDeadlineSeconds: 600
   replicas: 1
   revisionHistoryLimit: 2
@@ -29,20 +33,23 @@ spec:
                 values:
                 - gpu
       {{- end }}
+      initContainers:
+      - name: volume-mount-set-permissions-on-nfs-volume-home-mount
+        image: busybox
+        command: ["sh", "-c", "chown -R 1000:1000 /home/jovyan"]
+        volumeMounts:
+        - mountPath: /home/jovyan
+          name: notebook-home
+          subPath: {{ . }}-home
       containers:
       - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
         name: "{{ $.Release.Name }}-{{ . }}"
         command:
-          - "jupyter"
-        args:
-          - "notebook"
-          - "--port"
-          - "8888"
-          - "--no-browser"
-          - "--allow-root"
-          - "--NotebookApp.password='{{ $.Values.notebookPasswSha1 }}'"
-          - "--NotebookApp.allow_password_change=True"
+          - "/entrypoint.sh"
+        env:
+          - name: NOTEBOOK_PASSW_SHA1
+            value: '{{ $.Values.notebookPasswSha1 }}'        
         ports:
           - containerPort: 8888
         resources:
@@ -57,7 +64,7 @@ spec:
             nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
             {{- end }}
         volumeMounts:
-        - mountPath: /home/
+        - mountPath: /home/jovyan
           name: notebook-home
           subPath: {{ . }}-home
         - mountPath: /scratch-shared
@@ -73,7 +80,8 @@ spec:
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
-      securityContext: {}
+      securityContext:
+        allowPrivilegeEscalation: true
       terminationGracePeriodSeconds: 30
       volumes:
       - name: notebook-home
