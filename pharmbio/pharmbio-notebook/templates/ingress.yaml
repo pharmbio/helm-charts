@@ -10,7 +10,7 @@ metadata:
   labels:
     app: "{{ $.Release.Name }}-{{ . }}"
   name: "{{ $.Release.Name }}-{{ . }}"
-  namespace: labinf
+  namespace: "{{ $.Release.Namespace }}"
 spec:
   rules:
   - host: pharmbio-notebook.{{ $.Release.Name }}-{{ . }}.{{ $.Values.ingress.host }}
