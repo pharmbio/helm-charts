@@ -38,7 +38,6 @@ The following values can be configured in the `values.yaml` file, or set as comm
 | `*.*.memory`                | Minimum memory           | `1000Mi`                     |
 | `gpuAccess.enabled`         | Gpu access available     | `false`                      |
 | `*.gpus`                    | Number of gpus           | `0`                          |
-| `tfSupport.enabled`         | Support for TensorFlow   | `true`                       |
 | `secrets.secretsPath`       | Secrets path in notebook | `/credentials`               |
 | `*.secretNames`             | Secrets to mount         | _see values.yaml_            |
 | `ingress.enabled`           | Ingress to notebook      | `true`                       |
