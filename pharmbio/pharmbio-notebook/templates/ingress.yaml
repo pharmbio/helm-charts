@@ -10,10 +10,10 @@ metadata:
   labels:
     app: "{{ $.Release.Name }}-{{ . }}"
   name: "{{ $.Release.Name }}-{{ . }}"
-  namespace: labinf
+  namespace: "{{ $.Release.Namespace }}"
 spec:
   rules:
-  - host: pharmbio-notebook.{{ $.Release.Name }}-{{ . }}.{{ $.Values.ingress.host }}
+  - host: {{ $.Release.Name }}.{{ $.Values.ingress.host }}
     http:
       paths:
       - backend:
@@ -22,7 +22,7 @@ spec:
         path: /
   tls:
   - hosts:
-    - pharmbio-notebook.{{ $.Release.Name }}-{{ . }}.{{ $.Values.ingress.host }}
+    - {{ $.Release.Name }}.{{ $.Values.ingress.host }}
     secretName: "notebook-tls-{{ $.Release.Name }}-{{ . }}"
 
 {{- end }}

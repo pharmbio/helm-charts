@@ -6,7 +6,7 @@ metadata:
   name: "{{ $.Release.Name }}-{{ . }}"
   labels:
     app: "{{ $.Release.Name }}-{{ . }}"
-  namespace: labinf
+  namespace: "{{ $.Release.Namespace }}"
 spec:
   ports:
   - name: web
