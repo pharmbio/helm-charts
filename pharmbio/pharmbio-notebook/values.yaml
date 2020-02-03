@@ -41,5 +41,6 @@ ingress:
 extraVolumeClaims:
   - micro-images-pvc
 
+# run notebook on speciffic node from labels, e.g. host: limpar
 nodeSelector: {}
 
