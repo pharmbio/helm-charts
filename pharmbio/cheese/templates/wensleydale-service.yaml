@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wensleydale
+  namespace: {{ .Values.namespace }}
 spec:
   ports:
   - name: http
