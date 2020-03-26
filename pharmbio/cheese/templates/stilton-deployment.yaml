@@ -3,7 +3,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: stilton
-  namespace: {{ .Values.namespace }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     app: cheese
     cheese: stilton
