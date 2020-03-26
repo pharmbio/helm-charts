@@ -2,25 +2,25 @@ apiVersion: v1
 entries:
   cheese:
   - apiVersion: v1
-    created: 2020-03-25T11:53:39.1758393Z
-    description: 'Simple cheese deployment described by Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
-    digest: 6e81c1d149b6d9ce3d139f35fd009151674e97901922c02840c5604ac5306a53
+    created: 2020-03-26T11:37:17.259564693Z
+    description: 'Simple cheese deployment adopted from Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
+    digest: ccd0c17d7b7817b07a04c2b2667ffd9c3bd84c2a14fc457b0b43c7abd8692ac9
     home: https://hub.docker.com/r/errm/cheese
     maintainers:
-    - email: marco.capuccini@it.uu.se
-      name: Marco Capuccini
+    - email: anders.larsson@icm.uu.se
+      name: Anders Larsson
     name: cheese
     sources:
     - https://github.com/errm/cheese
     urls:
-    - https://pharmbio.github.io/helm-charts/cheese-0.1.0.tgz
-    version: 0.1.0
+    - https://pharmbio.github.io/helm-charts/cheese-0.2.0.tgz
+    version: 0.2.0
   ml-container:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-03-25T11:53:39.176557368Z
+    created: 2020-03-26T11:37:17.260099244Z
     description: A Helm chart for Kubernetes
-    digest: 96840ac7b9b3515d6b7d851262cbbf431c1e8de12fbbe6ca41831ebad1861b32
+    digest: 093277a7fb63f6c7d69c1f4ea89dfd43ebc866445e72b60d50826e50e6cbcfe9
     name: ml-container
     urls:
     - https://pharmbio.github.io/helm-charts/ml-container-0.1.0.tgz
@@ -28,9 +28,9 @@ entries:
   ml-nextcloud:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-03-25T11:53:39.176976271Z
+    created: 2020-03-26T11:37:17.260550564Z
     description: A Helm chart for Kubernetes
-    digest: bf37bfdabaa7218f84a2e56ee71fb07d01dd260ed15228f848fef412d06dd456
+    digest: 8cec8ba8382f51e426cf497489d0bb5715a6cbdad4f082d1f3265df6cc09f55b
     name: ml-nextcloud
     urls:
     - https://pharmbio.github.io/helm-charts/ml-nextcloud-0.1.0.tgz
@@ -38,11 +38,11 @@ entries:
   pharmbio-notebook:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-03-25T11:53:39.177560584Z
+    created: 2020-03-26T11:37:17.261126743Z
     description: A Helm chart for Kubernetes
-    digest: c80933aa55cabdfc90f30014308a750ed08523614d043bd1cef6913d84cc2e7e
+    digest: d9626ff69341fbc30c2ab7b1b85503fe7139ca8a677d18f3dc84d458b0efe97a
     name: pharmbio-notebook
     urls:
     - https://pharmbio.github.io/helm-charts/pharmbio-notebook-0.1.0.tgz
     version: 0.1.0
-generated: 2020-03-25T11:53:39.175475268Z
+generated: 2020-03-26T11:37:17.258660569Z
