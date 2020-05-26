@@ -74,12 +74,12 @@ spec:
         - mountPath: /scratch-shared
           name: scratch-shared
         {{- range $.Values.secrets.secretNames }}
-        - mountPath: {{ $.Values.secrets.secretsPath }}/{{ $.Values.user }}
-          name: {{ $.Values.user }}-secret
+        - mountPath: {{ $.Values.secrets.secretsPath }}/{{ . }}
+          name: {{ . }}-secret
         {{- end }}
         {{- range $.Values.extraVolumeClaims }}
-        - mountPath: /mnt/{{ $.Values.user }}
-          name: {{ $.Values.user }}
+        - mountPath: /mnt/{{ . }}
+          name: {{ . }}
         {{- end }}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
@@ -90,18 +90,18 @@ spec:
       volumes:
       - name: notebook-home
         persistentVolumeClaim:
-          claimName: {{ $.Values.notebook-home-pvc-name }}
+          claimName: {{ $.Values.notebook_home_pvc_name }}
       - name: scratch-shared
         hostPath:
-          path: {{ $.Values.scratch-disk-hostpath }}
+          path: {{ $.Values.scratch_disk_hostpath }}
           type: DirectoryOrCreate
       {{- range $.Values.secrets.secretNames }}
-      - name: {{ $.Values.user }}-secret
+      - name: {{ . }}-secret
         secret:
-          secretName: {{ $.Values.user }}
+          secretName: {{ . }}
       {{- end }}
       {{- range $.Values.extraVolumeClaims }}
-      - name: {{ $.Values.user }}
+      - name: {{ . }}
         persistentVolumeClaim:
-          claimName: {{ $.Values.user }}
+          claimName: {{ . }}
       {{- end }}
