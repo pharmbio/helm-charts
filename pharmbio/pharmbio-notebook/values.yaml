@@ -37,7 +37,7 @@ ingress:
   host: k8s-prod.pharmb.io
 
 # PVC for notebook homes
-notebook_homes_pvc_name: notebook-homes-pvc
+notebook_home_pvc_name: notebook-homes-pvc
 
 # Hostpath scratch disk path
 scratch_disk_hostpath: /media/scratch/shared
