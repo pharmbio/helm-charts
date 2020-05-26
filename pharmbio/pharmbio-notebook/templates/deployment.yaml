@@ -1,6 +1,5 @@
-{{- range .Values.users }}
 ---
-apiVersion: apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -49,7 +48,7 @@ spec:
       containers:
       - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
-        name: "{{ $.Release.Name }}-{{ . }}"
+        name: "{{ $.Release.Name }}_{{ . }}"
         command:
           - "/entrypoint.sh"
         env:
@@ -106,4 +105,3 @@ spec:
         persistentVolumeClaim:
           claimName: {{ . }}
       {{- end }}
-{{- end }}
