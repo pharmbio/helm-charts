@@ -36,6 +36,12 @@ ingress:
   enabled: true
   host: k8s-prod.pharmb.io
 
+# PVC for notebook homes
+notebook-homes-pvc-name: notebook-homes-pvc
+
+# Hostpath scratch disk path
+scratch-disk-hostpath: /media/scratch/shared
+
 # List name of any pvc to be mounted, can be found under /home/shared/<pvc name> in notebook filesystem
 extraVolumeClaims:
   - micro-images-pvc

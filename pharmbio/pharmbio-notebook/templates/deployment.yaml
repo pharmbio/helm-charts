@@ -90,10 +90,10 @@ spec:
       volumes:
       - name: notebook-home
         persistentVolumeClaim:
-          claimName: notebook-homes-pvc
+          claimName: {{ $.Values.notebook-home-pvc-name }}
       - name: scratch-shared
         hostPath:
-          path: /media/scratch/shared
+          path: {{ $.Values.scratch-disk-hostpath }}
           type: DirectoryOrCreate
       {{- range $.Values.secrets.secretNames }}
       - name: {{ $.Values.user }}-secret
