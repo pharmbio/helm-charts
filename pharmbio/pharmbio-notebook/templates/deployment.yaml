@@ -3,8 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: "{{ $.Release.Name }}-{{ . }}"
-  name: "{{ $.Release.Name }}-{{ . }}"
+    app: "{{ $.Release.Name }}-{{ .Values.user }}"
+  name: "{{ $.Release.Name }}-{{ .Values.user }}"
   namespace: "{{ $.Release.Namespace }}"
 spec:
   securityContext:
@@ -16,11 +16,11 @@ spec:
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: "{{ $.Release.Name }}-{{ . }}"
+      app: "{{ $.Release.Name }}-{{ .Values.user }}"
   template:
     metadata:
       labels:
-        app: "{{ $.Release.Name }}-{{ . }}"
+        app: "{{ $.Release.Name }}-{{ .Values.user }}"
     spec:
       {{- if $.Values.gpuAccess.enabled}}
       affinity:
@@ -44,11 +44,11 @@ spec:
         volumeMounts:
         - mountPath: /home/jovyan
           name: notebook-home
-          subPath: {{ . }}-home
+          subPath: {{ .Values.user }}-home
       containers:
       - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
-        name: "{{ $.Release.Name }}_{{ . }}"
+        name: "{{ $.Release.Name }}_{{ .Values.user }}"
         command:
           - "/entrypoint.sh"
         env:
@@ -70,16 +70,16 @@ spec:
         volumeMounts:
         - mountPath: /home/jovyan
           name: notebook-home
-          subPath: {{ . }}-home
+          subPath: {{ .Values.user }}-home
         - mountPath: /scratch-shared
           name: scratch-shared
         {{- range $.Values.secrets.secretNames }}
-        - mountPath: {{ $.Values.secrets.secretsPath }}/{{ . }}
-          name: {{ . }}-secret
+        - mountPath: {{ $.Values.secrets.secretsPath }}/{{ $.Values.user }}
+          name: {{ $.Values.user }}-secret
         {{- end }}
         {{- range $.Values.extraVolumeClaims }}
-        - mountPath: /mnt/{{ . }}
-          name: {{ . }}
+        - mountPath: /mnt/{{ $.Values.user }}
+          name: {{ $.Values.user }}
         {{- end }}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
@@ -96,12 +96,12 @@ spec:
           path: /media/scratch/shared
           type: DirectoryOrCreate
       {{- range $.Values.secrets.secretNames }}
-      - name: {{ . }}-secret
+      - name: {{ $.Values.user }}-secret
         secret:
-          secretName: {{ . }}
+          secretName: {{ $.Values.user }}
       {{- end }}
       {{- range $.Values.extraVolumeClaims }}
-      - name: {{ . }}
+      - name: {{ $.Values.user }}
         persistentVolumeClaim:
-          claimName: {{ . }}
+          claimName: {{ $.Values.user }}
       {{- end }}

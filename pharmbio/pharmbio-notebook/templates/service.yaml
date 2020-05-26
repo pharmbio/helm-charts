@@ -2,10 +2,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: "{{ $.Release.Name }}-{{ . }}"
+  name: "{{ .Release.Name }}-{{ .Values.user }}"
   labels:
-    app: "{{ $.Release.Name }}-{{ . }}"
-  namespace: "{{ $.Release.Namespace }}"
+    app: "{{ .Release.Name }}-{{ .Values.user }}"
+  namespace: "{{ .Release.Namespace }}"
 spec:
   ports:
   - name: web
@@ -13,6 +13,6 @@ spec:
     protocol: TCP
     targetPort: 8888
   selector:
-    app: "{{ $.Release.Name }}-{{ . }}"
+    app: "{{ .Release.Name }}-{{ .Values.user }}"
   sessionAffinity: None
   type: ClusterIP

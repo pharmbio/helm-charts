@@ -7,22 +7,22 @@ metadata:
     kubernetes.io/ingress.class: nginx
     kubernetes.io/tls-acme: "true"
   labels:
-    app: "{{ $.Release.Name }}-{{ . }}"
-  name: "{{ $.Release.Name }}-{{ . }}"
-  namespace: "{{ $.Release.Namespace }}"
+    app: "{{ .Release.Name }}-{{ .Values.user }}"
+  name: "{{ .Release.Name }}-{{ .Values.user }}"
+  namespace: "{{ .Release.Namespace }}"
 spec:
   rules:
-  - host: {{ $.Release.Name }}.{{ $.Values.ingress.host }}
+  - host: {{ .Release.Name }}.{{ .Values.ingress.host }}
     http:
       paths:
       - backend:
-          serviceName: "{{ $.Release.Name }}-{{ . }}"
+          serviceName: "{{ .Release.Name }}-{{ .Values.user }}"
           servicePort: 80
         path: /
   tls:
   - hosts:
-    - {{ $.Release.Name }}.{{ $.Values.ingress.host }}
-    secretName: "notebook-tls-{{ $.Release.Name }}-{{ . }}"
+    - {{ .Release.Name }}.{{ .Values.ingress.host }}
+    secretName: "notebook-tls-{{ .Release.Name }}-{{ .Values.user }}"
 
 {{- end }}
 
