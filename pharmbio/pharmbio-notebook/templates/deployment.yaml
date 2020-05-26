@@ -48,7 +48,7 @@ spec:
       containers:
       - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
-        name: "{{ $.Release.Name }}_{{ .Values.user }}"
+        name: "{{ $.Release.Name }}-{{ .Values.user }}"
         command:
           - "/entrypoint.sh"
         env:
