@@ -2,7 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-user: pharmbio-user
+
+# It is requred to specify a user name for notebook, this will be used for mounting
+# /home/<user> on persistent storage
+# user: pharmbio-user
 
 notebookPasswSha1: null
 

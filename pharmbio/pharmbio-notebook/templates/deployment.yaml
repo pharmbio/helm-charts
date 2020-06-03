@@ -3,8 +3,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: "{{ $.Release.Name }}-{{ .Values.user }}"
-  name: "{{ $.Release.Name }}-{{ .Values.user }}"
+    app: "{{ $.Release.Name }}"
+    notebook-user: {{ required "User name of notebook is required, specifify in values.yaml or with --set" .Values.user }}
+  name: "{{ $.Release.Name }}"
   namespace: "{{ $.Release.Namespace }}"
 spec:
   securityContext:
@@ -16,11 +17,11 @@ spec:
   revisionHistoryLimit: 2
   selector:
     matchLabels:
-      app: "{{ $.Release.Name }}-{{ .Values.user }}"
+      app: "{{ $.Release.Name }}"
   template:
     metadata:
       labels:
-        app: "{{ $.Release.Name }}-{{ .Values.user }}"
+        app: "{{ $.Release.Name }}"
     spec:
       {{- if $.Values.gpuAccess.enabled}}
       affinity:
@@ -48,7 +49,7 @@ spec:
       containers:
       - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
-        name: "{{ $.Release.Name }}-{{ .Values.user }}"
+        name: "{{ $.Release.Name }}"
         command:
           - "/entrypoint.sh"
         env:
