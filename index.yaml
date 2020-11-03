@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   cheese:
   - apiVersion: v1
-    created: 2020-11-03T16:19:04.244375816Z
+    created: 2020-11-03T16:24:09.798101658Z
     description: 'Simple cheese deployment adopted from Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
-    digest: 3d8074f64a3aaacf53df4ee9a1a2fd511ce4c29779e5eae4fadd24f6a8b981a8
+    digest: 75059d897b2f7aa9d2215afe5d981288062a05a28f9fbbc080e7fde5384ea1f4
     home: https://hub.docker.com/r/errm/cheese
     maintainers:
     - email: anders.larsson@icm.uu.se
@@ -18,9 +18,9 @@ entries:
   ml-container:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-11-03T16:19:04.244605953Z
+    created: 2020-11-03T16:24:09.798641288Z
     description: A Helm chart for Kubernetes
-    digest: 735f90f57b1cd17fd78806801ce69baaaadba2165502167ee161aabf465628d5
+    digest: 9f5dcfe7bf11db82cf9439905f944ccd738084dd6c37c97a877e3f1fe1ec3a8a
     name: ml-container
     urls:
     - https://pharmbio.github.io/helm-charts/ml-container-0.1.0.tgz
@@ -28,9 +28,9 @@ entries:
   ml-nextcloud:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-11-03T16:19:04.244820666Z
+    created: 2020-11-03T16:24:09.798890918Z
     description: A Helm chart for Kubernetes
-    digest: df1f2970f46792aed264d311e16705941a5aa2ab3bcf5592f5a3cad873787988
+    digest: b9d0800deccd7dc4e290a7764927ae3af140f59fa6ce5ba9da2beb1c2e771a99
     name: ml-nextcloud
     urls:
     - https://pharmbio.github.io/helm-charts/ml-nextcloud-0.1.0.tgz
@@ -38,11 +38,11 @@ entries:
   pharmbio-notebook:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-11-03T16:19:04.245113659Z
+    created: 2020-11-03T16:24:09.799211368Z
     description: A Helm chart for Kubernetes
-    digest: 4207524b3101466ad94f4fd8143f9f9338358bdb6abc9de8ee0ca43c0a1ff9a0
+    digest: 639e77114e9d2060a23b9da521613742a6379a358f1ba114591b9e2590062743
     name: pharmbio-notebook
     urls:
     - https://pharmbio.github.io/helm-charts/pharmbio-notebook-0.1.0.tgz
     version: 0.1.0
-generated: 2020-11-03T16:19:04.243996403Z
+generated: 2020-11-03T16:24:09.797251073Z
