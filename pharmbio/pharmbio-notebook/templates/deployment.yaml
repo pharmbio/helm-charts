@@ -74,6 +74,8 @@ spec:
           subPath: {{ .Values.user }}-home
         - mountPath: /scratch-shared
           name: scratch-shared
+        - mountPath: /dev/shm
+          name: dshm
         {{- range $.Values.secrets.secretNames }}
         - mountPath: {{ $.Values.secrets.secretsPath }}/{{ . }}
           name: {{ . }}-secret
@@ -96,6 +98,9 @@ spec:
         hostPath:
           path: {{ $.Values.scratch_disk_hostpath }}
           type: DirectoryOrCreate
+      - name: dshm
+        emptyDir:
+          medium: Memory
       {{- range $.Values.secrets.secretNames }}
       - name: {{ . }}-secret
         secret:
