@@ -80,10 +80,15 @@ spec:
         - mountPath: {{ $.Values.secrets.secretsPath }}/{{ . }}
           name: {{ . }}-secret
         {{- end }}
-        {{- range $.Values.extraVolumeClaims }}
-        - mountPath: /mnt/{{ . }}
-          name: {{ . }}
+
+        {{- range $.Values.extraVolumeMounts }}                                                                
+        - mountPath: {{ .mountPath }}                                                                          
+          name: {{ .volumeName }}                                                                              
         {{- end }}
+        {{- range $.Values.extraVolumeClaims }} # Deprecated, use extraVolumeMounts instead                    
+        - mountPath: /mnt/{{ . }}                                                                              
+          name: {{ . }}                                                                                        
+        {{- end }}                   
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -106,8 +111,13 @@ spec:
         secret:
           secretName: {{ . }}
       {{- end }}
-      {{- range $.Values.extraVolumeClaims }}
-      - name: {{ . }}
+      {{- range $.Values.extraVolumeMounts }}                                                                  
+      - name: {{ .volumeName }}                                                                                
         persistentVolumeClaim:
-          claimName: {{ . }}
+          claimName: {{ .claimName }}                                                                          
+      {{- end }}
+      {{- range $.Values.extraVolumeClaims }} # Deprecated, use extraVolumeMounts instead                      
+      - name: {{ . }}                                                                                          
+        persistentVolumeClaim:                                                                                 
+          claimName: {{ . }}                                                                                   
       {{- end }}
