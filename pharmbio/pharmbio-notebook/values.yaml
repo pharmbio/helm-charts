@@ -48,17 +48,14 @@ scratch_disk_hostpath: /media/scratch/shared
 # List name of any pvc to be mounted, can be found under /home/shared/<pvc name> in notebook filesystem
 # 
 # Deprecated, use extraVolumeMounts
-extraVolumeClaims:
-  - micro-images-pvc
+#extraVolumeClaims:
+#  - micro-images-pvc
 
 # List name of any pvc to be mounted, can be found under /home/shared/<pvc name> in notebook filesystem
-extraVolumeMounts:
-  - claimName: external-images-pvc
-    volumeName: external-images-pvc
-    mountPath: /share/external-images-pvc
-  - claimName: external-images-pvc2
-    volumeName: external-images-pvc2
-    mountPath: /share/external-images-pvc2
+#extraVolumeMounts:
+#  - claimName: external-images-pvc
+#    volumeName: external-images-pvc
+#    mountPath: /share/external-images-pvc
 
 # run notebook on speciffic node from labels, e.g. host: limpar
 nodeSelector: {}
