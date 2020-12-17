@@ -40,7 +40,7 @@ spec:
       {{- end}}
       initContainers:
       - name: volume-mount-set-permissions-on-nfs-volume-home-mount
-        image: busybox
+        image: gcr.io/google-containers/busybox
         command: ["sh", "-c", "chown 1000:1000 /home/jovyan"]
         volumeMounts:
         - mountPath: /home/jovyan
