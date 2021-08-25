@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   cheese:
   - apiVersion: v1
-    created: 2020-12-17T13:43:33.469055457Z
+    created: "2021-08-25T13:32:34.32832576Z"
     description: 'Simple cheese deployment adopted from Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
-    digest: b13cdf3e3dc80fe818d8cbc999fb6f38d723ccea09b70b8a494e0800b79df746
+    digest: e4b09976a7c1ce8f67fe7586ee453943210c1787b42d784d2f0b08917319472e
     home: https://hub.docker.com/r/errm/cheese
     maintainers:
     - email: anders.larsson@icm.uu.se
@@ -18,9 +18,9 @@ entries:
   ml-container:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-12-17T13:43:33.469338316Z
+    created: "2021-08-25T13:32:34.328626831Z"
     description: A Helm chart for Kubernetes
-    digest: b2a1e06635b73993260a8693f4f35e0881851cdae8001171aafb71bd1782502a
+    digest: f11bd2c1f6b4db36ce6d8dc668c8e61a8420a7bc2597788be4c6b894aefb7cb9
     name: ml-container
     urls:
     - https://pharmbio.github.io/helm-charts/ml-container-0.1.0.tgz
@@ -28,9 +28,9 @@ entries:
   ml-nextcloud:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-12-17T13:43:33.469569693Z
+    created: "2021-08-25T13:32:34.328912276Z"
     description: A Helm chart for Kubernetes
-    digest: 6190fed97d04bbe8b298ea6353f001b2721baa3ef20aa7ff29e6528522b4efd7
+    digest: c812c1e0368eca3de80abcf7a7d761175cf1a7f56b99c237cc413ea36af8e8c2
     name: ml-nextcloud
     urls:
     - https://pharmbio.github.io/helm-charts/ml-nextcloud-0.1.0.tgz
@@ -38,11 +38,11 @@ entries:
   pharmbio-notebook:
   - apiVersion: v1
     appVersion: "1.0"
-    created: 2020-12-17T13:43:33.469857293Z
+    created: "2021-08-25T13:32:34.329372852Z"
     description: A Helm chart for Kubernetes
-    digest: 5ec23a43c77c7e6fb70b606201ef640d3c1e47b070d203783b10f995225f4848
+    digest: 2272a0ff29e49f342676438e19dbee15d5c21da1afabbb6a06d00b2af9204b08
     name: pharmbio-notebook
     urls:
     - https://pharmbio.github.io/helm-charts/pharmbio-notebook-0.1.0.tgz
     version: 0.1.0
-generated: 2020-12-17T13:43:33.468262722Z
+generated: "2021-08-25T13:32:34.327865562Z"
