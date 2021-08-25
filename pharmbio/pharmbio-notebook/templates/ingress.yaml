@@ -15,7 +15,8 @@ spec:
   - host: {{ .Release.Name }}.{{ .Values.ingress.host }}
     http:
       paths:
-      - path: /
+      - pathType: Prefix
+        path: /
         backend:
           service:
             name: "{{ .Release.Name }}"
