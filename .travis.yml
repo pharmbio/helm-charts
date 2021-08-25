@@ -3,8 +3,8 @@ language: python
 
 env:
   global:
-    - HELM_URL=https://storage.googleapis.com/kubernetes-helm
-    - HELM_TGZ=helm-v2.13.1-linux-amd64.tar.gz
+    - HELM_URL=https://get.helm.sh
+    - HELM_TGZ=helm-v3.6.3-darwin-amd64.tar.gz
     - TARGET_BR=gh-pages
     - REPO_DIR=/home/travis/build/pharmbio/helm-charts
     - GH_URL=https://pharmbio.github.io/helm-charts
