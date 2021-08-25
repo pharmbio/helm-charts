@@ -15,10 +15,13 @@ spec:
   - host: {{ .Release.Name }}.{{ .Values.ingress.host }}
     http:
       paths:
-      - backend:
-          serviceName: "{{ .Release.Name }}"
-          servicePort: 80
-        path: /
+      - path: /
+        backend:
+          service:
+            name: "{{ .Release.Name }}"
+            port:
+              number: 80
+        
   tls:
   - hosts:
     - {{ .Release.Name }}.{{ .Values.ingress.host }}
