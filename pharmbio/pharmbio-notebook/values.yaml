@@ -5,7 +5,7 @@
 
 # It is requred to specify a user name for notebook, this will be used for mounting
 # /home/<user> on persistent storage
-# user: pharmbio-user
+user: pharmbio-user
 
 notebookPasswSha1: null
 
@@ -15,6 +15,8 @@ image:
   repository: pharmbio/pharmbio-notebook
   tag: tf-1.14.0-gpu
   pullPolicy: Always
+
+command: "/entrypoint.sh"
 
 resources:
   limits:
@@ -27,7 +29,7 @@ resources:
 # If enabled, will add gpu resource request/limit for provided number of gpus
 gpuAccess:
   enabled: true
-  gpus: 0
+  gpus: 1
 
 # Each secret under secretNames will be mounted to the secretsPath folder in the container, see `kubectl get secrets` to list all visible secrets
 secrets:

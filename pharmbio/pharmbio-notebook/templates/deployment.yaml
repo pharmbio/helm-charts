@@ -47,7 +47,7 @@ spec:
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
         name: "{{ $.Release.Name }}"
         command:
-          - "/entrypoint.sh"
+          - "{{ $.Values.command }}"
         env:
           - name: NOTEBOOK_PASSW_SHA1
             value: '{{ $.Values.notebookPasswSha1 }}'
@@ -57,13 +57,13 @@ spec:
           allowPrivilegeEscalation: true
         resources:
           limits:
-          {{- toYaml $.Values.resources.limits | nindent 14 }}
-            {{- if $.Values.gpuAccess.enabled -}}
+            {{- toYaml $.Values.resources.limits | nindent 12 }} 
+            {{- if $.Values.gpuAccess.enabled }}
             nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
             {{- end }}
           requests:
-          {{- toYaml $.Values.resources.requests | nindent 14 }}
-            {{- if $.Values.gpuAccess.enabled -}}
+            {{- toYaml $.Values.resources.requests | nindent 12 }}
+            {{- if $.Values.gpuAccess.enabled }}
             nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
             {{- end }}
         volumeMounts:
