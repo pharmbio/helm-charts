@@ -1,0 +1,7 @@
+¤¤¤¤¤¤¤¤¤¤¤
+
+Your release is named: {{ .Release.Name }}
+Pod ingress (url):
+https://{{ .Release.Name }}.{{ .Values.ingress.host }}
+
+¤¤¤
