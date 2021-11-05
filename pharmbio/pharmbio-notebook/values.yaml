@@ -7,6 +7,7 @@
 # /home/<user> on persistent storage
 user: pharmbio-user
 
+# Deprecated, use environmentVars below
 notebookPasswSha1: null
 
 # tag should be explicit version found at:
@@ -16,7 +17,15 @@ image:
   tag: tf-1.14.0-gpu
   pullPolicy: Always
 
+container_port: 8888
+
 command: "/entrypoint.sh"
+
+#environmentVars:
+#  - name: VAR1
+#    value: value1
+#  - name: VAR2
+#    value: value2
 
 resources:
   limits:
@@ -42,7 +51,10 @@ ingress:
   host: k8s-prod.pharmb.io
 
 # PVC for notebook homes
-notebook_home_pvc_name: notebook-homes-pvc
+container_user_home_pvc_name: notebook-homes-pvc
+
+# directory in container that should be mounted to Persistent storage
+container_user_home: /home/jovyan
 
 # Hostpath scratch disk path
 scratch_disk_hostpath: /media/scratch/shared
