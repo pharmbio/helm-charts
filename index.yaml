@@ -2,9 +2,9 @@ apiVersion: v1
 entries:
   cheese:
   - apiVersion: v1
-    created: "2021-11-05T10:08:44.719840917Z"
+    created: "2022-01-20T11:50:18.796862295Z"
     description: 'Simple cheese deployment adopted from Traefik documentation: http://docs.traefik.io/user-guide/kubernetes/'
-    digest: 5c163b2fa1f96d00ac776436e89da80b4ba4f0f54d0f6a424a689d71128d6699
+    digest: bb28cdec81ee792103779b690f8add1ca2dde4356b0dd17510cb30d15b38a3b9
     home: https://hub.docker.com/r/errm/cheese
     maintainers:
     - email: anders.larsson@icm.uu.se
@@ -18,9 +18,9 @@ entries:
   ml-container:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-11-05T10:08:44.720120191Z"
+    created: "2022-01-20T11:50:18.797146226Z"
     description: A Helm chart for Kubernetes
-    digest: 964f90a31f5753a00d3aec69a55b01d7763df8c59379ff87307eac9166cf1237
+    digest: 8ea303aa8a38d548aad32eee6efa7a2716581f93ce6e57f472a7c541366cb3a3
     name: ml-container
     urls:
     - https://pharmbio.github.io/helm-charts/ml-container-0.1.0.tgz
@@ -28,9 +28,9 @@ entries:
   ml-nextcloud:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-11-05T10:08:44.720381179Z"
+    created: "2022-01-20T11:50:18.797395473Z"
     description: A Helm chart for Kubernetes
-    digest: 0db29abc7f38759fa4a515ee5ba6482a797e5e8f5bed2f5e3237bd25d4d39a2d
+    digest: 498a489ed257aa9e131660239027264519835b9b400b0e51c28589fe25edfab8
     name: ml-nextcloud
     urls:
     - https://pharmbio.github.io/helm-charts/ml-nextcloud-0.1.0.tgz
@@ -38,12 +38,12 @@ entries:
   pharmbio-notebook:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-11-05T10:08:44.720821082Z"
+    created: "2022-01-20T11:50:18.797822204Z"
     description: A Helm chart for Kubernetes
-    digest: 1958617a3bebb2a76b905177d044e50c868ef54ff53de03016eef5e99b79d021
+    digest: 566c71a723b3ec55a4267f98fe984980bdd2ec8c36c8a4e0911efdda639e3330
     icon: https://pharmb.io/img/pharmbio-logo-new.png
     name: pharmbio-notebook
     urls:
     - https://pharmbio.github.io/helm-charts/pharmbio-notebook-0.2.0.tgz
     version: 0.2.0
-generated: "2021-11-05T10:08:44.719400785Z"
+generated: "2022-01-20T11:50:18.79649425Z"
