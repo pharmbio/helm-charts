@@ -47,7 +47,7 @@ spec:
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
         name: "{{ $.Release.Name }}"
         command:
-          - "{{ $.Values.command }}"
+        - "{{ $.Values.command }}"
         env:
           - name: NOTEBOOK_PASSW_SHA1
             value: '{{ $.Values.notebookPasswSha1 }}'
@@ -82,8 +82,11 @@ spec:
         - mountPath: {{ $.Values.secrets.secretsPath }}/{{ . }}
           name: {{ . }}-secret
         {{- end }}
-
         {{- range $.Values.extraVolumeMounts }}                                                                
+        - mountPath: {{ .mountPath }}                                                                          
+          name: {{ .volumeName }}                                                                              
+        {{- end }}
+        {{- range $.Values.extraHostpathMounts }}                                                                
         - mountPath: {{ .mountPath }}                                                                          
           name: {{ .volumeName }}                                                                              
         {{- end }}
@@ -115,6 +118,12 @@ spec:
       - name: {{ .volumeName }}                                                                                
         persistentVolumeClaim:
           claimName: {{ .claimName }}                                                                          
+      {{- end }}
+      {{- range $.Values.extraHostpathMounts }}                                                                  
+      - name: {{ .volumeName }}                                                                                
+        hostPath:
+          path: {{ .path }} 
+          type: DirectoryOrCreate
       {{- end }}
       {{- range $.Values.extraVolumeClaims }} # Deprecated, use extraVolumeMounts instead                      
       - name: {{ . }}                                                                                          
