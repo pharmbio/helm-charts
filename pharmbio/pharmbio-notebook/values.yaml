@@ -41,10 +41,10 @@ gpuAccess:
   gpus: 1
 
 # Each secret under secretNames will be mounted to the secretsPath folder in the container, see `kubectl get secrets` to list all visible secrets
-secrets:
-  secretsPath: /credentials
-  secretNames:
-    - mysql-chembl-credentials
+#secrets:
+#  secretsPath: /credentials
+#  secretNames:
+#    - mysql-chembl-credentials
 
 ingress:
   enabled: true
