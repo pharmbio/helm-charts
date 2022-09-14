@@ -1,7 +1,6 @@
 # Pharmbio notebook
 A helm chart for deploying on-demand notebooks with access to different services running in the rancher cluster. Meant to be the goto environment when a user wants to interact with these services. See [below](#available-services) for what services are available and how to interact with them.
 
-
 ## Installing the Chart
 You can install the Chart via Helm CLI:
 
