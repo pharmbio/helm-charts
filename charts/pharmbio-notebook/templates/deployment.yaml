@@ -51,9 +51,9 @@ spec:
         env:
           - name: NOTEBOOK_PASSW_SHA1
             value: '{{ $.Values.notebookPasswSha1 }}'
-        {{- range $.Values.environmentVars }}                                                                  
-          - name: {{ .name }} 
-            value: '{{ .value }}'                                                                                                                                             
+        {{- range $.Values.environmentVars }}
+          - name: {{ .name }}
+            value: '{{ .value }}'
         {{- end }}
         ports:
           - containerPort: {{ $.Values.container_port }}
@@ -61,7 +61,7 @@ spec:
           allowPrivilegeEscalation: true
         resources:
           limits:
-            {{- toYaml $.Values.resources.limits | nindent 12 }} 
+            {{- toYaml $.Values.resources.limits | nindent 12 }}
             {{- if $.Values.gpuAccess.enabled }}
             nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
             {{- end }}
@@ -78,22 +78,18 @@ spec:
           name: scratch-shared
         - mountPath: /dev/shm
           name: dshm
-        {{- range $.Values.secrets.secretNames }}
-        - mountPath: {{ $.Values.secrets.secretsPath }}/{{ . }}
-          name: {{ . }}-secret
+        {{- range $.Values.extraVolumeMounts }}
+        - mountPath: {{ .mountPath }}
+          name: {{ .volumeName }}
         {{- end }}
-        {{- range $.Values.extraVolumeMounts }}                                                                
-        - mountPath: {{ .mountPath }}                                                                          
-          name: {{ .volumeName }}                                                                              
+        {{- range $.Values.extraHostpathMounts }}
+        - mountPath: {{ .mountPath }}
+          name: {{ .volumeName }}
         {{- end }}
-        {{- range $.Values.extraHostpathMounts }}                                                                
-        - mountPath: {{ .mountPath }}                                                                          
-          name: {{ .volumeName }}                                                                              
+        {{- range $.Values.extraVolumeClaims }} # Deprecated, use extraVolumeMounts instead
+        - mountPath: /mnt/{{ . }}
+          name: {{ . }}
         {{- end }}
-        {{- range $.Values.extraVolumeClaims }} # Deprecated, use extraVolumeMounts instead                    
-        - mountPath: /mnt/{{ . }}                                                                              
-          name: {{ . }}                                                                                        
-        {{- end }}                
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -109,24 +105,19 @@ spec:
       - name: dshm
         emptyDir:
           medium: Memory
-      {{- range $.Values.secrets.secretNames }}
-      - name: {{ . }}-secret
-        secret:
-          secretName: {{ . }}
-      {{- end }}
-      {{- range $.Values.extraVolumeMounts }}                                                                  
-      - name: {{ .volumeName }}                                                                                
+      {{- range $.Values.extraVolumeMounts }}
+      - name: {{ .volumeName }}
         persistentVolumeClaim:
-          claimName: {{ .claimName }}                                                                          
+          claimName: {{ .claimName }}
       {{- end }}
-      {{- range $.Values.extraHostpathMounts }}                                                                  
-      - name: {{ .volumeName }}                                                                                
+      {{- range $.Values.extraHostpathMounts }}
+      - name: {{ .volumeName }}
         hostPath:
-          path: {{ .path }} 
+          path: {{ .path }}
           type: DirectoryOrCreate
       {{- end }}
-      {{- range $.Values.extraVolumeClaims }} # Deprecated, use extraVolumeMounts instead                      
-      - name: {{ . }}                                                                                          
-        persistentVolumeClaim:                                                                                 
-          claimName: {{ . }}                                                                                   
+      {{- range $.Values.extraVolumeClaims }} # Deprecated, use extraVolumeMounts instead
+      - name: {{ . }}
+        persistentVolumeClaim:
+          claimName: {{ . }}
       {{- end }}
