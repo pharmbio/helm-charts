@@ -58,7 +58,15 @@ spec:
         ports:
           - containerPort: {{ $.Values.container_port }}
         securityContext:
-          allowPrivilegeEscalation: true
+          # These are the NEW lines using .Values.security
+          runAsNonRoot: {{ .Values.security.runAsNonRoot }}
+          runAsUser: {{ .Values.security.runAsUser }}
+          allowPrivilegeEscalation: {{ .Values.security.allowPrivilegeEscalation }}
+          capabilities:
+            drop:
+              {{- range .Values.security.dropCapabilities }}
+              - {{ . }}
+              {{- end }}
         resources:
           limits:
             {{- toYaml $.Values.resources.limits | nindent 12 }}
@@ -76,6 +84,7 @@ spec:
           subPath: {{ .Values.user }}-home
         - mountPath: /scratch-shared
           name: scratch-shared
+          readOnly: {{ .Values.security.hostPathReadOnly }}
         - mountPath: /dev/shm
           name: dshm
         {{- range $.Values.extraVolumeMounts }}
@@ -89,6 +98,7 @@ spec:
         {{- range $.Values.extraVolumeClaims }} # Deprecated, use extraVolumeMounts instead
         - mountPath: /mnt/{{ . }}
           name: {{ . }}
+          readOnly: {{ $.Values.security.hostPathReadOnly }}
         {{- end }}
       dnsPolicy: ClusterFirst
       restartPolicy: Always

@@ -40,6 +40,14 @@ gpuAccess:
   enabled: true
   gpus: 1
 
+# default security
+security:
+  runAsNonRoot: true             # Default: run as root
+  runAsUser: 1000                # If runAsNonRoot=true, use UID 1000
+  allowPrivilegeEscalation: true # Default: same as now
+  hostPathReadOnly: false        # Default: scratch hostPath is R/W
+  dropCapabilities: []           # Default no dropping
+
 # Each secret under secretNames will be mounted to the secretsPath folder in the container, see `kubectl get secrets` to list all visible secrets
 #secrets:
 #  secretsPath: /credentials
