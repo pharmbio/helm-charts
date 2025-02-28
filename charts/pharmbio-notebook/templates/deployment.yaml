@@ -46,8 +46,7 @@ spec:
       - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
         name: "{{ $.Release.Name }}"
-        command:
-        - "{{ $.Values.command }}"
+        command: {{ toJson .Values.command | nindent 8 }}
         env:
           - name: NOTEBOOK_PASSW_SHA1
             value: '{{ $.Values.notebookPasswSha1 }}'
