@@ -19,7 +19,8 @@ image:
 
 container_port: 8888
 
-command: "/entrypoint.sh"
+command: 
+  - "/entrypoint.sh"
 
 #environmentVars:
 #  - name: VAR1
