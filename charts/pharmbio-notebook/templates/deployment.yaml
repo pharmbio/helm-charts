@@ -72,6 +72,7 @@ spec:
           volumeMounts:
             - name: container-user-home
               mountPath: "{{ $.Values.container_user_home }}"
+              subPath: {{ .Values.user }}-home
             - mountPath: /scratch-shared
               name: scratch-shared
               readOnly: {{ $.Values.security.hostPathReadOnly }}
@@ -100,8 +101,6 @@ spec:
         - name: container-user-home
           persistentVolumeClaim:
             claimName: {{ $.Values.container_user_home_pvc_name }}
-        - name: user-home-volume
-          emptyDir: {}
         - name: scratch-shared
           hostPath:
             path: {{ $.Values.scratch_disk_hostpath }}
