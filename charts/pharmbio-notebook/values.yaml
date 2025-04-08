@@ -49,12 +49,6 @@ security:
   hostPathReadOnly: false        # Default: scratch hostPath is R/W
   dropCapabilities: []           # Default no dropping
 
-# Each secret under secretNames will be mounted to the secretsPath folder in the container, see `kubectl get secrets` to list all visible secrets
-#secrets:
-#  secretsPath: /credentials
-#  secretNames:
-#    - mysql-chembl-credentials
-
 ingress:
   enabled: true
   host: k8s-prod.pharmb.io
