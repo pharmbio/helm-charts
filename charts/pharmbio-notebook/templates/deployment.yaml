@@ -70,7 +70,7 @@ spec:
               nvidia.com/gpu: "{{ $.Values.gpuAccess.gpus }}"
               {{- end }}
           volumeMounts:
-            - name: user-home-volume
+            - name: container-user-home
               mountPath: "{{ $.Values.container_user_home }}"
             - mountPath: /scratch-shared
               name: scratch-shared
