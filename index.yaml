@@ -3,6 +3,16 @@ entries:
   pharmbio-notebook:
   - apiVersion: v1
     appVersion: "1.0"
+    created: "2025-04-09T07:18:51.348073256Z"
+    description: A Helm chart for Kubernetes
+    digest: daf03f3ee6437a1df813e08d09707371fe9379c0ed41c1c95e1e255222d004d1
+    icon: https://pharmb.io/img/pharmbio-logo-new.png
+    name: pharmbio-notebook
+    urls:
+    - https://github.com/pharmbio/helm-charts/releases/download/pharmbio-notebook-0.2.13/pharmbio-notebook-0.2.13.tgz
+    version: 0.2.13
+  - apiVersion: v1
+    appVersion: "1.0"
     created: "2025-04-08T12:46:54.631294332Z"
     description: A Helm chart for Kubernetes
     digest: e2e1986026bf75e12d673336813eebc4cc21423e5970d683f730662207d16ef9
@@ -111,4 +121,4 @@ entries:
     urls:
     - https://github.com/pharmbio/helm-charts/releases/download/pharmbio-notebook-0.2.1/pharmbio-notebook-0.2.1.tgz
     version: 0.2.1
-generated: "2025-04-08T12:46:54.631343384Z"
+generated: "2025-04-09T07:18:51.348138037Z"
