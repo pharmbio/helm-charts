@@ -37,11 +37,16 @@ spec:
       initContainers:
       - name: volume-mount-set-permissions-on-nfs-volume-home-mount
         image: ghcr.io/pharmbio/busybox:stable
-        command: ["sh", "-c", "chown 1000:1000 {{ $.Values.container_user_home }}"]
+        command:
+          - sh
+          - -c
+          - |
+            echo "Attempting to chown..."
+            chown 1000:1000 {{ $.Values.container_user_home }} || echo "chown failed, ignoring error."
         volumeMounts:
-        - mountPath: {{ $.Values.container_user_home }}
-          name: container-user-home
-          subPath: {{ .Values.user }}-home
+          - mountPath: {{ $.Values.container_user_home }}
+            name: container-user-home
+            subPath: {{ .Values.user }}-home
       containers:
       - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
         imagePullPolicy: {{ $.Values.image.pullPolicy }}
