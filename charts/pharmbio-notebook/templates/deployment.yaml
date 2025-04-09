@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   labels:
     app: "{{ $.Release.Name }}"
-    notebook-user: {{ required "User name is required, specify in values.yaml or with --set" .Values.user }}
+    notebook-user: {{ required "User name of notebook is required, specifify in values.yaml or with --set" .Values.user }}
   name: "{{ $.Release.Name }}"
   namespace: "{{ $.Release.Namespace }}"
 spec:
@@ -19,108 +19,114 @@ spec:
       labels:
         app: "{{ $.Release.Name }}"
     spec:
-      {{- if $.Values.gpuAccess.enabled }}
+      {{- if $.Values.gpuAccess.enabled}}
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-              - matchExpressions:
-                  - key: acceleration
-                    operator: In
-                    values:
-                      - gpu
+            - matchExpressions:
+              - key: acceleration
+                operator: In
+                values:
+                - gpu
       {{- end }}
-      {{- if $.Values.nodeSelector }}
+      {{- if $.Values.nodeSelector}}
       nodeSelector:
-        {{ toYaml $.Values.nodeSelector }}
-      {{- end }}
-
+        {{toYaml $.Values.nodeSelector}}
+      {{- end}}
+      initContainers:
+      - name: volume-mount-set-permissions-on-nfs-volume-home-mount
+        image: ghcr.io/pharmbio/busybox:stable
+        command: ["sh", "-c", "chown 1000:1000 {{ $.Values.container_user_home }}"]
+        volumeMounts:
+        - mountPath: {{ $.Values.container_user_home }}
+          name: container-user-home
+          subPath: {{ .Values.user }}-home
       containers:
-        - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
-          imagePullPolicy: {{ $.Values.image.pullPolicy }}
-          name: "{{ $.Release.Name }}"
-          command: {{ toJson $.Values.command }}
-          env:
-            - name: NOTEBOOK_PASSW_SHA1
-              value: '{{ $.Values.notebookPasswSha1 }}'
-          {{- range $.Values.environmentVars }}
-            - name: {{ .name }}
-              value: '{{ .value }}'
-          {{- end }}
-          ports:
-            - containerPort: {{ $.Values.container_port }}
-          securityContext:
-            runAsNonRoot: {{ .Values.security.runAsNonRoot }}
-            runAsUser: {{ .Values.security.runAsUser }}
-            allowPrivilegeEscalation: {{ .Values.security.allowPrivilegeEscalation }}
-            capabilities:
-              drop:
-                {{- range .Values.security.dropCapabilities }}
-                - {{ . }}
-                {{- end }}
-          resources:
-            limits:
-              {{- toYaml $.Values.resources.limits | nindent 14 }}
-              {{- if $.Values.gpuAccess.enabled }}
-              nvidia.com/gpu: "{{ $.Values.gpuAccess.gpus }}"
+      - image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag }}"
+        imagePullPolicy: {{ $.Values.image.pullPolicy }}
+        name: "{{ $.Release.Name }}"
+        command: {{ toJson $.Values.command }}
+        env:
+          - name: NOTEBOOK_PASSW_SHA1
+            value: '{{ $.Values.notebookPasswSha1 }}'
+        {{- range $.Values.environmentVars }}
+          - name: {{ .name }}
+            value: '{{ .value }}'
+        {{- end }}
+        ports:
+          - containerPort: {{ $.Values.container_port }}
+        securityContext:
+          # These are the NEW lines using .Values.security
+          runAsNonRoot: {{ .Values.security.runAsNonRoot }}
+          runAsUser: {{ .Values.security.runAsUser }}
+          allowPrivilegeEscalation: {{ .Values.security.allowPrivilegeEscalation }}
+          capabilities:
+            drop:
+              {{- range .Values.security.dropCapabilities }}
+              - {{ . }}
               {{- end }}
-            requests:
-              {{- toYaml $.Values.resources.requests | nindent 14 }}
-              {{- if $.Values.gpuAccess.enabled }}
-              nvidia.com/gpu: "{{ $.Values.gpuAccess.gpus }}"
-              {{- end }}
-          volumeMounts:
-            - name: container-user-home
-              mountPath: "{{ $.Values.container_user_home }}"
-              subPath: {{ .Values.user }}-home
-            - mountPath: /scratch-shared
-              name: scratch-shared
-              readOnly: {{ $.Values.security.hostPathReadOnly }}
-            - mountPath: /dev/shm
-              name: dshm
-            {{- range $.Values.extraVolumeMounts }}
-            - mountPath: {{ .mountPath }}
-              name: {{ .volumeName }}
+        resources:
+          limits:
+            {{- toYaml $.Values.resources.limits | nindent 12 }}
+            {{- if $.Values.gpuAccess.enabled }}
+            nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
             {{- end }}
-            {{- range $.Values.extraHostpathMounts }}
-            - mountPath: {{ .mountPath }}
-              name: {{ .volumeName }}
+          requests:
+            {{- toYaml $.Values.resources.requests | nindent 12 }}
+            {{- if $.Values.gpuAccess.enabled }}
+            nvidia.com/gpu: "{{- $.Values.gpuAccess.gpus}}"
             {{- end }}
-            {{- range $.Values.extraVolumeClaims }}
-            - mountPath: /mnt/{{ . }}
-              name: {{ . }}
-              readOnly: {{ $.Values.security.hostPathReadOnly }}
-            {{- end }}
-
+        volumeMounts:
+        - mountPath: {{ $.Values.container_user_home }}
+          name: container-user-home
+          subPath: {{ .Values.user }}-home
+        - mountPath: /scratch-shared
+          name: scratch-shared
+          readOnly: {{ .Values.security.hostPathReadOnly }}
+        - mountPath: /dev/shm
+          name: dshm
+        {{- range $.Values.extraVolumeMounts }}
+        - mountPath: {{ .mountPath }}
+          name: {{ .volumeName }}
+        {{- end }}
+        {{- range $.Values.extraHostpathMounts }}
+        - mountPath: {{ .mountPath }}
+          name: {{ .volumeName }}
+        {{- end }}
+        {{- range $.Values.extraVolumeClaims }} # Deprecated, use extraVolumeMounts instead
+        - mountPath: /mnt/{{ . }}
+          name: {{ . }}
+          readOnly: {{ $.Values.security.hostPathReadOnly }}
+        {{- end }}
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       terminationGracePeriodSeconds: 30
-
       volumes:
-        - name: container-user-home
-          persistentVolumeClaim:
-            claimName: {{ $.Values.container_user_home_pvc_name }}
-        - name: scratch-shared
-          hostPath:
-            path: {{ $.Values.scratch_disk_hostpath }}
-            type: DirectoryOrCreate
-        - name: dshm
-          emptyDir:
-            medium: Memory
-        {{- range $.Values.extraVolumeMounts }}
-        - name: {{ .volumeName }}
-          persistentVolumeClaim:
-            claimName: {{ .claimName }}
-        {{- end }}
-        {{- range $.Values.extraHostpathMounts }}
-        - name: {{ .volumeName }}
-          hostPath:
-            path: {{ .path }}
-            type: DirectoryOrCreate
-        {{- end }}
-        {{- range $.Values.extraVolumeClaims }}
-        - name: {{ . }}
-          persistentVolumeClaim:
-            claimName: {{ . }}
-        {{- end }}
+      - name: container-user-home
+        persistentVolumeClaim:
+          claimName: {{ $.Values.container_user_home_pvc_name }}
+      - name: scratch-shared
+        hostPath:
+          path: {{ $.Values.scratch_disk_hostpath }}
+          type: DirectoryOrCreate
+      - name: dshm
+        emptyDir:
+          medium: Memory
+      {{- range $.Values.extraVolumeMounts }}
+      - name: {{ .volumeName }}
+        persistentVolumeClaim:
+          claimName: {{ .claimName }}
+      {{- end }}
+      {{- range $.Values.extraHostpathMounts }}
+      - name: {{ .volumeName }}
+        hostPath:
+          path: {{ .path }}
+          type: DirectoryOrCreate
+      {{- end }}
+      {{- range $.Values.extraVolumeClaims }} # Deprecated, use extraVolumeMounts instead
+      - name: {{ . }}
+        persistentVolumeClaim:
+          claimName: {{ . }}
+      {{- end }}
