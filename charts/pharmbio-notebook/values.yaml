@@ -38,8 +38,8 @@ resources:
 
 # If enabled, will add gpu resource request/limit for provided number of gpus
 gpuAccess:
-  enabled: true
-  gpus: 1
+  enabled: false
+  gpus: 0
 
 # default security
 security:
@@ -51,7 +51,7 @@ security:
 
 ingress:
   enabled: true
-  host: k8s-prod.pharmb.io
+  host: k8s.pharmb.io
 
 # PVC for notebook homes
 container_user_home_pvc_name: notebook-homes-pvc

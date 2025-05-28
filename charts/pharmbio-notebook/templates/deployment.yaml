@@ -20,6 +20,7 @@ spec:
         app: "{{ $.Release.Name }}"
     spec:
       {{- if $.Values.gpuAccess.enabled}}
+      runtimeClassName: nvidia
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
