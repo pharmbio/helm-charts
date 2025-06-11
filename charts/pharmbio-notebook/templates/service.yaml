@@ -12,6 +12,12 @@ spec:
     port: 80
     protocol: TCP
     targetPort: {{ $.Values.container_port }}
+{{- if .Values.ssh.enabled }}
+  - name: ssh
+    port: 22
+    targetPort: 22
+    protocol: TCP
+{{- end }}
   selector:
     app: "{{ .Release.Name }}"
   sessionAffinity: None

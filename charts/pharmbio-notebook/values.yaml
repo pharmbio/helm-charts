@@ -41,6 +41,9 @@ gpuAccess:
   enabled: false
   gpus: 0
 
+ssh:
+  enabled: false
+
 # default security
 security:
   runAsNonRoot: true             # Default: run as root
