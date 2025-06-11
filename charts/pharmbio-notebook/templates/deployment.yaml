@@ -110,9 +110,18 @@ spec:
           readOnly: {{ $.Values.security.hostPathReadOnly }}
         {{- end }}
         {{- if .Values.ssh.enabled }}
-        - mountPath: /etc/ssh
-          name: ssh-host-keys
-          readOnly: true
+        - name: ssh-host-keys
+          mountPath: /etc/ssh/ssh_host_ed25519_key
+          subPath: ssh_host_ed25519_key
+        - name: ssh-host-keys
+          mountPath: /etc/ssh/ssh_host_ed25519_key.pub
+          subPath: ssh_host_ed25519_key.pub
+        - name: ssh-host-keys
+          mountPath: /etc/ssh/ssh_host_rsa_key
+          subPath: ssh_host_rsa_key
+        - name: ssh-host-keys
+          mountPath: /etc/ssh/ssh_host_rsa_key.pub
+          subPath: ssh_host_rsa_key.pub
         {{- end }}
 
       dnsPolicy: ClusterFirst
