@@ -56,6 +56,10 @@ spec:
         env:
           - name: NOTEBOOK_PASSW_SHA1
             value: '{{ $.Values.notebookPasswSha1 }}'
+        {{- if .Values.ssh.enabled }}
+          - name: SSH_ENABLED
+            value: true
+        {{- end }}
         {{- range $.Values.environmentVars }}
           - name: {{ .name }}
             value: '{{ .value }}'
@@ -105,6 +109,12 @@ spec:
           name: {{ . }}
           readOnly: {{ $.Values.security.hostPathReadOnly }}
         {{- end }}
+        {{- if .Values.ssh.enabled }}
+        - mountPath: /etc/ssh
+          name: ssh-host-keys
+          readOnly: true
+        {{- end }}
+
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
@@ -113,6 +123,12 @@ spec:
       - name: container-user-home
         persistentVolumeClaim:
           claimName: {{ $.Values.container_user_home_pvc_name }}
+      {{- if .Values.ssh.enabled }}
+      - name: ssh-host-keys
+        secret:
+          secretName: ssh-host-keys
+          defaultMode: 0600
+      {{- end }}
       - name: scratch-shared
         hostPath:
           path: {{ $.Values.scratch_disk_hostpath }}
