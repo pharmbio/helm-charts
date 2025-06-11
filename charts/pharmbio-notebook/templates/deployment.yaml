@@ -58,7 +58,7 @@ spec:
             value: '{{ $.Values.notebookPasswSha1 }}'
         {{- if .Values.ssh.enabled }}
           - name: SSH_ENABLED
-            value: true
+            value: 'true'
         {{- end }}
         {{- range $.Values.environmentVars }}
           - name: {{ .name }}
