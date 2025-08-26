@@ -62,6 +62,9 @@ container_user_home_pvc_name: notebook-homes-pvc
 # directory in container that should be mounted to Persistent storage
 container_user_home: /home/jovyan
 
+scratchDisk:
+  enabled: true
+
 # Hostpath scratch disk path
 scratch_disk_hostpath: /media/scratch/shared
 
