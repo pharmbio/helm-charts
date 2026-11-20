@@ -30,3 +30,16 @@ Create chart name and version as used by the chart label.
 {{- define "pharmbio-notebook.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Label with the notebook owner's Slack member ID, used by alerting to @-mention the user.
+Renders nothing if slackUserId is not set.
+*/}}
+{{- define "pharmbio-notebook.slackUserLabel" -}}
+{{- with .Values.slackUserId -}}
+{{- if not (regexMatch "^[UW][A-Z0-9]{6,20}$" .) -}}
+{{- fail (printf "slackUserId %q is not a Slack member ID (e.g. U01AB2CD3EF), find it in Slack under Profile -> ... -> Copy member ID" .) -}}
+{{- end -}}
+slack-user-id: {{ . | quote }}
+{{- end -}}
+{{- end -}}

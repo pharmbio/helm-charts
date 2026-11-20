@@ -5,6 +5,7 @@ metadata:
   labels:
     app: "{{ $.Release.Name }}"
     notebook-user: {{ required "User name of notebook is required, specifify in values.yaml or with --set" .Values.user }}
+    {{- include "pharmbio-notebook.slackUserLabel" . | nindent 4 }}
   name: "{{ $.Release.Name }}"
   namespace: "{{ $.Release.Namespace }}"
 spec:
@@ -18,6 +19,8 @@ spec:
     metadata:
       labels:
         app: "{{ $.Release.Name }}"
+        notebook-user: {{ .Values.user | quote }}
+        {{- include "pharmbio-notebook.slackUserLabel" . | nindent 8 }}
     spec:
       {{- if $.Values.gpuAccess.enabled}}
       runtimeClassName: nvidia

@@ -7,6 +7,10 @@
 # /home/<user> on persistent storage
 user: pharmbio-user
 
+# Slack member ID of the notebook owner (e.g. U01AB2CD3EF, in Slack: Profile -> ... -> Copy member ID).
+# Added as pod label "slack-user-id" so alerts (OOMKilled, restarts etc.) can @-mention the user.
+slackUserId: ""
+
 # Deprecated, use environmentVars below
 notebookPasswSha1: null
 
